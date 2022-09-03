@@ -54,9 +54,7 @@ def MainMenu():
 
 
 def Partie():
-    secret_code = ['','','','']
-    for couleur in secret_code:
-        couleur = Color[random.randint(0,5)]
+    secret_code = [Color[random.randint(0,5)],Color[random.randint(0,5)],Color[random.randint(0,5)],Color[random.randint(0,5)]]
 
     print("Try a 4 char code [" +
           Color[0] + ", " + Color[1] + ", " + Color[2] + ", " + Color[3] + ", " + Color[4] + ", " + Color[5]
@@ -66,34 +64,41 @@ def Partie():
         query = input()
         if query == "GIVE UP" :
             break
-        submit = VerifierQuery(query);
+        submit = VerifierQuery(query)
         if submit == "erreur" :
             print("Mauvaise Entrée")
+        else :
 
-        print (submit)
+            print("submit: "+ str(submit))
+            print("code: " + str(secret_code))
 
-        sortie = ""
-        cont = ''
-        i = 0
-        for char in submit :
-            cont = ' '
-            if char == secret_code[i] :
-                cont = '!'
+            sortie = ""
+            cont = ''
+            i = 0
+            for char in submit :
+                cont = ' '
+                if char == secret_code[i] :
+                    cont = '!'
+                else :
+                    for code in secret_code:
+                        if char == code:
+                            cont = '?'
+                sortie = sortie + cont
+                i += 1
+
+            if (sortie == "!!!!"):
+                print ("Bravo !!!!")
             else :
-                for code in secret_code:
-                    if char == code:
-                        cont = '?'
-        sortie += cont
-
-        print (submit[0] + submit[1] + submit[2] + submit[3] + " --> [" + sortie +
-               "] (! = Bonne Couleur + Bonne Position ; ? = Bonne Couleur)")
+                print (submit[0] + submit[1] + submit[2] + submit[3] + " --> [" + sortie +
+                    "] (! = Bonne Couleur + Bonne Position ; ? = Bonne Couleur)")
 
     return 0
 
 def VerifierQuery(query):
+    print(query)
     essai = list(query)
     sortie = ['','','','']
-    print (essai)
+
     if len(essai) == 4:
         i = 0
         for char in essai:
