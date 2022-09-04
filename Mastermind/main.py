@@ -21,45 +21,37 @@ def Start():
         "Developed by StackNoodles™ \nThis work is licensed under a GNU General Public License version 3 (or later version)\n\n")
 
 
-
+# Lancement du programme
 def Game():
     Start()
 
-    while True: # A changer
-        MainMenu()
+    MainMenu()
 
-    End()
-    return 0
-
-
+# Menu principal + choix
 def MainMenu():
 
-    checkrep = False
-    while not checkrep:
+    while True:
         reponse = input("Press P to PLAY, Q to QUIT, C for the CREDITS \n").upper()
 
         if reponse == "P":
             Partie()
-            checkrep = True
         elif reponse == "Q":
             Quit()
-            checkrep = True
         elif reponse == "C":
             Credit()
-            checkrep = True
 
 
-
-
-
-
+# Partie de Mastermind
 def Partie():
+    # Code a deviner
     code_secret = [Color[random.randint(0,5)],Color[random.randint(0,5)],Color[random.randint(0,5)],Color[random.randint(0,5)]]
 
+    # Entrée dans la partie
     print("Try a 4 char code [" +
           Color[0] + ", " + Color[1] + ", " + Color[2] + ", " + Color[3] + ", " + Color[4] + ", " + Color[5]
           + "] or \033[0;32;10mGIVE UP\033[0;38;10m")
 
+    # Boucle des tours 
     while True:
 
         query = input()
@@ -72,12 +64,14 @@ def Partie():
         if submit == "erreur" :
             print("Mauvaise Entrée")
         else :
+            # Copie du code secret pour pouvoir le manipuler
             copie_code = code_secret.copy()
             sortie = [' ',' ',' ',' ']
 
             i = 0
             for char in submit :
-                if char == copie_code[i] :
+                # Si le charactere correspond, ecrit '!' dans la sortie et on supprime le char correspondant dans la copie du code secret
+                if char == copie_code[i] : 
                     sortie[i] = '!'
                     copie_code[i] = ''
 
@@ -87,9 +81,11 @@ def Partie():
             for char in submit : 
                 k = 0
                 for code in copie_code :
+                    # Si le char correspond a un de ceux du code secret, on écrit '?' dans la sortie et on supprime le char correspondant
                     if char == code and sortie[j] != '!':
                         sortie[j] = '?'
                         copie_code[k] = ''
+                        # On ne veut en supprimer qu'un seul
                         break
 
                     k += 1
@@ -103,7 +99,7 @@ def Partie():
                 print (submit[0] + submit[1] + submit[2] + submit[3] + " --> [" + sortie[0] + sortie[1] + sortie[2] + sortie[3] +
                     "] (! = Bonne Couleur + Bonne Position ; ? = Bonne Couleur)")
 
-
+# Verification et traduction de l'entrée de l'utilisateur
 def VerifierQuery(query):
     essai = list(query)
     sortie = ['','','','']
@@ -132,14 +128,12 @@ def VerifierQuery(query):
 
     return sortie
 
-
+# Fin du programme
 def Quit():
     quit()
 
-
 def Credit():
     print("PROJECT MANAGER\nMaryse Pilote\n\nLEAD DESIGNER\nYanni Haddar\n\nDEVELOPPERS\n\033[0;33;10mQuentin Gastaldo\033[0;38;10m\nMaryse Pilote\nSam Sebille\n\nCopyright Stack Noodles 2022")
-
 
 if __name__ == '__main__':
     Game()
