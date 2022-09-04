@@ -42,7 +42,7 @@ def MainMenu():
             Partie()
             checkrep = True
         elif reponse == "Q":
-            End()
+            Quit()
             checkrep = True
         elif reponse == "C":
             Credit()
@@ -54,48 +54,57 @@ def MainMenu():
 
 
 def Partie():
-    secret_code = [Color[random.randint(0,5)],Color[random.randint(0,5)],Color[random.randint(0,5)],Color[random.randint(0,5)]]
+    code_secret = [Color[random.randint(0,5)],Color[random.randint(0,5)],Color[random.randint(0,5)],Color[random.randint(0,5)]]
 
     print("Try a 4 char code [" +
           Color[0] + ", " + Color[1] + ", " + Color[2] + ", " + Color[3] + ", " + Color[4] + ", " + Color[5]
           + "] or \033[0;32;10mGIVE UP\033[0;38;10m")
 
     while True:
+
         query = input()
+
         if query == "GIVE UP" :
-            break
+            MainMenu()
+
         submit = VerifierQuery(query)
+
         if submit == "erreur" :
             print("Mauvaise Entrée")
         else :
+            copie_code = code_secret.copy()
+            sortie = [' ',' ',' ',' ']
 
-            print("submit: "+ str(submit))
-            print("code: " + str(secret_code))
-
-            sortie = ""
-            cont = ''
             i = 0
             for char in submit :
-                cont = ' '
-                if char == secret_code[i] :
-                    cont = '!'
-                else :
-                    for code in secret_code:
-                        if char == code:
-                            cont = '?'
-                sortie = sortie + cont
+                if char == copie_code[i] :
+                    sortie[i] = '!'
+                    copie_code[i] = ''
+
                 i += 1
 
-            if (sortie == "!!!!"):
-                print ("Bravo !!!!")
+            j = 0
+            for char in submit : 
+                k = 0
+                for code in copie_code :
+                    if char == code and sortie[j] != '!':
+                        sortie[j] = '?'
+                        copie_code[k] = ''
+                        break
+
+                    k += 1
+
+                j += 1
+
+            if (sortie[0] + sortie[1] + sortie[2] + sortie[3] == "!!!!"):
+                print (submit[0] + submit[1] + submit[2] + submit[3] +" était le code secret, Bravo !!!!")
+                MainMenu()
             else :
-                print (submit[0] + submit[1] + submit[2] + submit[3] + " --> [" + sortie +
+                print (submit[0] + submit[1] + submit[2] + submit[3] + " --> [" + sortie[0] + sortie[1] + sortie[2] + sortie[3] +
                     "] (! = Bonne Couleur + Bonne Position ; ? = Bonne Couleur)")
 
-    return 0
 
 def VerifierQuery(query):
-    print(query)
     essai = list(query)
     sortie = ['','','','']
 
@@ -124,8 +133,8 @@ def VerifierQuery(query):
     return sortie
 
 
-def End():
-    return 0
+def Quit():
+    quit()
 
 
 def Credit():
