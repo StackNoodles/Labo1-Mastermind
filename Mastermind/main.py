@@ -138,7 +138,7 @@ def Quit():
 
 
 def Credit():
-    print("PROJECT MANAGER\nMaryse Pilote\n\nLEAD DESIGNER\nYanni Haddar\n\nDEVELOPPERS\nQuentin Gastaldo\nMaryse Pilote\nSam Sebille\n\nCopyright Stack Noodles 2022")
+    print("PROJECT MANAGER\nMaryse Pilote\n\nLEAD DESIGNER\nYanni Haddar\n\nDEVELOPPERS\n\033[0;33;10mQuentin Gastaldo\033[0;38;10m\nMaryse Pilote\nSam Sebille\n\nCopyright Stack Noodles 2022")
 
 
 if __name__ == '__main__':
