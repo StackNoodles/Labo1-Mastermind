@@ -1,4 +1,5 @@
 import random
+import time
 
 Color = \
     ["\033[0;34;10mB\033[0;38;10m", #BLUE
@@ -130,6 +131,15 @@ def VerifierQuery(query):
 
 # Fin du programme
 def Quit():
+    print("Unplugging", end="")
+    for period in range(3):
+        time.sleep(0.5)
+        print(".", end="")
+    else:
+        time.sleep(0.5)
+        print("BRAIN UNPLUGGED!")
+        time.sleep(0.5)
+        print("Goodbye.")
     quit()
 
 def Credit():
