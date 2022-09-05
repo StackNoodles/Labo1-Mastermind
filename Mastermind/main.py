@@ -137,9 +137,9 @@ def Quit():
         print(".", end="")
     else:
         time.sleep(0.5)
-        print("BRAIN UNPLUGGED!")
+        print("BRAIN UNPLUGGED!", end="")
         time.sleep(0.5)
-        print("Goodbye.")
+        print("\nGoodbye.")
     quit()
 
 def Credit():
