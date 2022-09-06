@@ -2,11 +2,11 @@ import random
 import time
 import textwrap
 from colorama import init, Fore, Back, Style
-init()
+init(convert=True)
 
 
 Color = \
-    ["\033[0;34;10mB\033[0;38;10m", #BLUE
+    [Fore.BLUE+"B", #BLUE
      "\033[0;32;10mG\033[0;38;10m", #GREEN
      "\033[0;31;10mR\033[0;38;10m", #RED
      "\033[0;33;10mY\033[0;38;10m", #YELLOW
@@ -19,21 +19,21 @@ def cprint(txt):
 
 def Start():
     print()
-    txt_logo = (Fore.YELLOW+"██\      ██\  ██████\   ██████\  ████████\ ████████\ ███████\  ██\      ██\ ██████\ ██\   ██\ ███████\__ \n" +
-                Fore.YELLOW+"███\    ███ |██  __██\ ██  __██\ \__██  __|██  _____|██  __██\ ███\    ███ |\_██  _|███\  ██ |██  __██\_ \n" +
-                Fore.BLUE+"████\  ████ |██ /  ██ |██ /  \__|   ██ |   ██ |      ██ |  ██ |████\  ████ |  ██ |  ████\ ██ |██ |  ██ | \n" +
-                Fore.BLUE+"██\██\██ ██ |████████ |\██████\     ██ |   █████\    ███████  |██\██\██ ██ |  ██ |  ██ ██\██ |██ |  ██ | \n" +
-                Fore.GREEN+"██ \███  ██ |██  __██ | \____██\    ██ |   ██  __|   ██  __██< ██ \███  ██ |  ██ |  ██ \████ |██ |  ██ | \n" +
-                Fore.GREEN+"██ |\█  /██ |██ |  ██ |██\   ██ |   ██ |   ██ |      ██ |  ██ |██ |\█  /██ |  ██ |  ██ |\███ |██ |  ██ | \n" +
-                Fore.RED+"██ | \_/ ██ |██ |  ██ |\██████  |   ██ |   ████████\ ██ |  ██ |██ | \_/ ██ |██████\ ██ | \██ |███████  | \n" +
-                Fore.RED+"\__|     \__|\__|  \__| \______/    \__|   \________|\__|  \__|\__|     \__|\______|\__|  \__|\_______/_\n")
+    txt_logo = (Fore.YELLOW+"    ██\      ██\  ██████\   ██████\  ████████\ ████████\ ███████\  ██\      ██\ ██████\ ██\   ██\ ███████\    \n" +
+                Fore.YELLOW+"    ███\    ███ |██  __██\ ██  __██\ \__██  __|██  _____|██  __██\ ███\    ███ |\_██  _|███\  ██ |██  __██\   \n" +
+                Fore.BLUE+"    ████\  ████ |██ /  ██ |██ /  \__|   ██ |   ██ |      ██ |  ██ |████\  ████ |  ██ |  ████\ ██ |██ |  ██ |  \n" +
+                Fore.BLUE+"    ██\██\██ ██ |████████ |\██████\     ██ |   █████\    ███████  |██\██\██ ██ |  ██ |  ██ ██\██ |██ |  ██ | \n" +
+                Fore.GREEN+"    ██ \███  ██ |██  __██ | \____██\    ██ |   ██  __|   ██  __██< ██ \███  ██ |  ██ |  ██ \████ |██ |  ██ | \n" +
+                Fore.GREEN+"    ██ |\█  /██ |██ |  ██ |██\   ██ |   ██ |   ██ |      ██ |  ██ |██ |\█  /██ |  ██ |  ██ |\███ |██ |  ██ | \n" +
+                Fore.RED+"    ██ | \_/ ██ |██ |  ██ |\██████  |   ██ |   ████████\ ██ |  ██ |██ | \_/ ██ |██████\ ██ | \██ |███████  | \n" +
+                Fore.RED+"    \__|     \__|\__|  \__| \______/    \__|   \________|\__|  \__|\__|     \__|\______|\__|  \__|\_______/  \n")
 
-    for line in textwrap.wrap(txt_logo, width=116):
+    for line in textwrap.wrap(txt_logo, width=118, drop_whitespace=False, break_on_hyphens=True):
         print(line.center(set_width))
 
     print(Fore.LIGHTWHITE_EX)
     cprint("Developed by" + Fore.YELLOW + " StackNoodles™")
-    cprint(Fore.WHITE + "This work is licensed under a GNU General Public License version 3 (or later version)")
+    cprint(Fore.BLACK + "This work is licensed under a GNU General Public License version 3 (or later version)")
     print(Fore.LIGHTWHITE_EX+"\n")
 
 
@@ -159,7 +159,7 @@ def Quit():
     quit()
 
 def Credit():
-    print("PROJECT MANAGER\nMaryse Pilote\n\nLEAD DESIGNER\nYanni Haddar\n\nDEVELOPPERS\n\033[0;33;10mQuentin Gastaldo\033[0;38;10m\nMaryse Pilote\nSam Sebille\n\nCopyright Stack Noodles 2022")
+    print("PROJECT MANAGER\nMaryse Pilote\n\nLEAD DESIGNER\nYanni Haddar\n\nDEVELOPPERS\nQuentin Gastaldo\nMaryse Pilote\nSam Sebille\n\nCopyright Stack Noodles 2022")
 
 if __name__ == '__main__':
     Game()
