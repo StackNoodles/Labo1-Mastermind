@@ -1,5 +1,9 @@
 import random
 import time
+import textwrap
+from colorama import init, Fore, Back, Style
+init()
+
 
 Color = \
     ["\033[0;34;10mB\033[0;38;10m", #BLUE
@@ -9,17 +13,28 @@ Color = \
      "\033[0;36;10mC\033[0;38;10m", #CYAN
      "\033[0;35;10mP\033[0;38;10m"] #PURPLE
 
+set_width=130
+def cprint(txt):
+    print(txt.center(set_width))
+
 def Start():
-    print(
-        "██\      ██\  ██████\   ██████\  ████████\ ████████\ ███████\  ██\      ██\ ██████\ ██\   ██\ ███████\ \n" +
-        "███\    ███ |██  __██\ ██  __██\ \__██  __|██  _____|██  __██\ ███\    ███ |\_██  _|███\  ██ |██  __██\  \n" +
-        "████\  ████ |██ /  ██ |██ /  \__|   ██ |   ██ |      ██ |  ██ |████\  ████ |  ██ |  ████\ ██ |██ |  ██ | \n" +
-        "██\██\██ ██ |████████ |\██████\     ██ |   █████\    ███████  |██\██\██ ██ |  ██ |  ██ ██\██ |██ |  ██ | \n" +
-        "██ \███  ██ |██  __██ | \____██\    ██ |   ██  __|   ██  __██< ██ \███  ██ |  ██ |  ██ \████ |██ |  ██ | \n" +
-        "██ |\█  /██ |██ |  ██ |██\   ██ |   ██ |   ██ |      ██ |  ██ |██ |\█  /██ |  ██ |  ██ |\███ |██ |  ██ | \n" +
-        "██ | \_/ ██ |██ |  ██ |\██████  |   ██ |   ████████\ ██ |  ██ |██ | \_/ ██ |██████\ ██ | \██ |███████  | \n" +
-        "\__|     \__|\__|  \__| \______/    \__|   \________|\__|  \__|\__|     \__|\______|\__|  \__|\_______/\n\n" +
-        "Developed by StackNoodles™ \nThis work is licensed under a GNU General Public License version 3 (or later version)\n\n")
+    print()
+    txt_logo = (Fore.YELLOW+"██\      ██\  ██████\   ██████\  ████████\ ████████\ ███████\  ██\      ██\ ██████\ ██\   ██\ ███████\__ \n" +
+                Fore.YELLOW+"███\    ███ |██  __██\ ██  __██\ \__██  __|██  _____|██  __██\ ███\    ███ |\_██  _|███\  ██ |██  __██\_ \n" +
+                Fore.BLUE+"████\  ████ |██ /  ██ |██ /  \__|   ██ |   ██ |      ██ |  ██ |████\  ████ |  ██ |  ████\ ██ |██ |  ██ | \n" +
+                Fore.BLUE+"██\██\██ ██ |████████ |\██████\     ██ |   █████\    ███████  |██\██\██ ██ |  ██ |  ██ ██\██ |██ |  ██ | \n" +
+                Fore.GREEN+"██ \███  ██ |██  __██ | \____██\    ██ |   ██  __|   ██  __██< ██ \███  ██ |  ██ |  ██ \████ |██ |  ██ | \n" +
+                Fore.GREEN+"██ |\█  /██ |██ |  ██ |██\   ██ |   ██ |   ██ |      ██ |  ██ |██ |\█  /██ |  ██ |  ██ |\███ |██ |  ██ | \n" +
+                Fore.RED+"██ | \_/ ██ |██ |  ██ |\██████  |   ██ |   ████████\ ██ |  ██ |██ | \_/ ██ |██████\ ██ | \██ |███████  | \n" +
+                Fore.RED+"\__|     \__|\__|  \__| \______/    \__|   \________|\__|  \__|\__|     \__|\______|\__|  \__|\_______/_\n")
+
+    for line in textwrap.wrap(txt_logo, width=116):
+        print(line.center(set_width))
+
+    print(Fore.LIGHTWHITE_EX)
+    cprint("Developed by" + Fore.YELLOW + " StackNoodles™")
+    cprint(Fore.WHITE + "This work is licensed under a GNU General Public License version 3 (or later version)")
+    print(Fore.LIGHTWHITE_EX+"\n")
 
 
 # Lancement du programme
@@ -32,7 +47,8 @@ def Game():
 def MainMenu():
 
     while True:
-        reponse = input("Press P to PLAY, Q to QUIT, C for the CREDITS \n").upper()
+        cprint("Press P to PLAY, Q to QUIT, C for the CREDITS \n")
+        reponse = input().upper()
 
         if reponse == "P":
             Partie()
