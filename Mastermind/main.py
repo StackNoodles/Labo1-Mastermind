@@ -1,6 +1,7 @@
 import random
 import time
 import textwrap
+import shutil
 from colorama import init, Fore, Back, Style
 init()
 
@@ -13,12 +14,13 @@ Color = \
      "\033[0;36;10mC\033[0;38;10m", #CYAN
      "\033[0;35;10mP\033[0;38;10m"] #PURPLE
 
-set_width=130
+size = shutil.get_terminal_size()
+set_width=size.columns
 def cprint(txt):
     print(txt.center(set_width))
 
 def Start():
-    print()
+    print(Style.NORMAL)
     txt_logo = (Fore.BLUE+"    ██\      ██\  ██████\   ██████\  ████████\ ████████\ ███████\  ██\      ██\ ██████\ ██\   ██\ ███████\    \n" +
                 Fore.BLUE+"    ███\    ███ |██  __██\ ██  __██\ \__██  __|██  _____|██  __██\ ███\    ███ |\_██  _|███\  ██ |██  __██\   \n" +
                 Fore.GREEN+"    ████\  ████ |██ /  ██ |██ /  \__|   ██ |   ██ |      ██ |  ██ |████\  ████ |  ██ |  ████\ ██ |██ |  ██ |  \n" +
@@ -28,13 +30,13 @@ def Start():
                 Fore.RED+"    ██ | \_/ ██ |██ |  ██ |\██████  |   ██ |   ████████\ ██ |  ██ |██ | \_/ ██ |██████\ ██ | \██ |███████  | \n" +
                 Fore.RED+"    \__|     \__|\__|  \__| \______/    \__|   \________|\__|  \__|\__|     \__|\______|\__|  \__|\_______/  \n")
 
-    for line in textwrap.wrap(txt_logo, width=118, drop_whitespace=False, break_on_hyphens=True):
+    for line in textwrap.wrap(txt_logo, width=118, drop_whitespace=False):
         print(line.center(set_width))
 
-    print(Fore.WHITE)
-    cprint("Developed by" + Fore.YELLOW + " StackNoodles™")
-    cprint(Style.DIM + "This work is licensed under a GNU General Public License version 3 (or later version)")
-    print(Fore.WHITE+"\n")
+    print(Style.BRIGHT)
+    cprint(Fore.BLACK + "Developed by" + Fore.YELLOW + " StackNoodles™")
+    cprint(Fore.BLACK + "This work is licensed under a GNU General Public License version 3 (or later version)")
+    print(Style.RESET_ALL)
 
 
 # Lancement du programme
@@ -47,7 +49,8 @@ def Game():
 def MainMenu():
 
     while True:
-        cprint("Press P to PLAY, Q to QUIT, C for the CREDITS \n")
+        cprint("Press P to PLAY, Q to QUIT, C for the CREDITS")
+        print()
         reponse = input().upper()
 
         if reponse == "P":
@@ -149,7 +152,7 @@ def VerifierQuery(query):
 def Quit():
     print("Unplugging".center(set_width), end="")
     print()
-    print("".center(60), end="")
+    print("".center((set_width//2)-(5)), end="")
     for period in range(10):
         time.sleep(0.2)
         print(".", end="")
