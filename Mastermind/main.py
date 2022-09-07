@@ -84,12 +84,14 @@ def Partie():
             i = 0
             for i in range(TAILLE_CODE):
                 sortie.append(' ')
+            s = 0
 
             i = 0
             for char in submit:
                 # Si le charactere correspond, ecrit '!' dans la sortie et on supprime le char correspondant dans la copie du code secret
                 if char == copie_code[i]:
-                    sortie[i] = '!'
+                    sortie[s] = '!'
+                    s += 1
                     copie_code[i] = ''
 
                 i += 1
@@ -100,7 +102,8 @@ def Partie():
                 for code in copie_code:
                     # Si le char correspond a un de ceux du code secret, on écrit '?' dans la sortie et on supprime le char correspondant
                     if char == code and sortie[j] != '!':
-                        sortie[j] = '?'
+                        sortie[s] = '?'
+                        s += 1
                         copie_code[k] = ''
                         # On ne veut en supprimer qu'un seul
                         break
