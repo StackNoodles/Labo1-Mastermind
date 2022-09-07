@@ -71,7 +71,7 @@ def Partie():
     # Boucle des tours 
     while True:
 
-        query = input()
+        query = input().upper()
 
         if query == "GIVE UP" :
             MainMenu()
