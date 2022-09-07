@@ -183,4 +183,9 @@ def Credit():
 
 
 if __name__ == '__main__':
-    Game()
+    try:
+        Game()
+    except KeyboardInterrupt:
+        Quit()
+    except Exception:
+        print ("Fatal Error")
