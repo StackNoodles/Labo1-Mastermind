@@ -2,6 +2,11 @@ from hashlib import new
 import random
 from re import sub
 import time
+import textwrap
+import shutil
+from colorama import init, Fore, Back, Style
+init()
+
 
 Color = \
     ["\033[0;34;10mB\033[0;38;10m",  # BLUE
@@ -13,18 +18,29 @@ Color = \
 
 TAILLE_CODE = 4
 
+size = shutil.get_terminal_size()
+set_width=size.columns
+def cprint(txt):
+    print(txt.center(set_width))
 
 def Start():
-    print(
-        "██\      ██\  ██████\   ██████\  ████████\ ████████\ ███████\  ██\      ██\ ██████\ ██\   ██\ ███████\ \n" +
-        "███\    ███ |██  __██\ ██  __██\ \__██  __|██  _____|██  __██\ ███\    ███ |\_██  _|███\  ██ |██  __██\  \n" +
-        "████\  ████ |██ /  ██ |██ /  \__|   ██ |   ██ |      ██ |  ██ |████\  ████ |  ██ |  ████\ ██ |██ |  ██ | \n" +
-        "██\██\██ ██ |████████ |\██████\     ██ |   █████\    ███████  |██\██\██ ██ |  ██ |  ██ ██\██ |██ |  ██ | \n" +
-        "██ \███  ██ |██  __██ | \____██\    ██ |   ██  __|   ██  __██< ██ \███  ██ |  ██ |  ██ \████ |██ |  ██ | \n" +
-        "██ |\█  /██ |██ |  ██ |██\   ██ |   ██ |   ██ |      ██ |  ██ |██ |\█  /██ |  ██ |  ██ |\███ |██ |  ██ | \n" +
-        "██ | \_/ ██ |██ |  ██ |\██████  |   ██ |   ████████\ ██ |  ██ |██ | \_/ ██ |██████\ ██ | \██ |███████  | \n" +
-        "\__|     \__|\__|  \__| \______/    \__|   \________|\__|  \__|\__|     \__|\______|\__|  \__|\_______/\n\n" +
-        "Developed by StackNoodles™ \nThis work is licensed under a GNU General Public License version 3 (or later version)\n\n")
+    print(Style.NORMAL)
+    txt_logo = (Fore.BLUE+"    ██\      ██\  ██████\   ██████\  ████████\ ████████\ ███████\  ██\      ██\ ██████\ ██\   ██\ ███████\    \n" +
+                Fore.BLUE+"    ███\    ███ |██  __██\ ██  __██\ \__██  __|██  _____|██  __██\ ███\    ███ |\_██  _|███\  ██ |██  __██\   \n" +
+                Fore.GREEN+"    ████\  ████ |██ /  ██ |██ /  \__|   ██ |   ██ |      ██ |  ██ |████\  ████ |  ██ |  ████\ ██ |██ |  ██ |  \n" +
+                Fore.GREEN+"    ██\██\██ ██ |████████ |\██████\     ██ |   █████\    ███████  |██\██\██ ██ |  ██ |  ██ ██\██ |██ |  ██ | \n" +
+                Fore.YELLOW+"    ██ \███  ██ |██  __██ | \____██\    ██ |   ██  __|   ██  __██< ██ \███  ██ |  ██ |  ██ \████ |██ |  ██ | \n" +
+                Fore.YELLOW+"    ██ |\█  /██ |██ |  ██ |██\   ██ |   ██ |   ██ |      ██ |  ██ |██ |\█  /██ |  ██ |  ██ |\███ |██ |  ██ | \n" +
+                Fore.RED+"    ██ | \_/ ██ |██ |  ██ |\██████  |   ██ |   ████████\ ██ |  ██ |██ | \_/ ██ |██████\ ██ | \██ |███████  | \n" +
+                Fore.RED+"    \__|     \__|\__|  \__| \______/    \__|   \________|\__|  \__|\__|     \__|\______|\__|  \__|\_______/  \n")
+
+    for line in textwrap.wrap(txt_logo, width=118, drop_whitespace=False):
+        print(line.center(set_width))
+
+    print(Style.BRIGHT)
+    cprint(Fore.BLACK + "Developed by" + Fore.YELLOW + " StackNoodles™")
+    cprint(Fore.BLACK + "This work is licensed under a GNU General Public License version 3 (or later version)")
+    print(Style.RESET_ALL)
 
 
 # Lancement du programme
@@ -39,8 +55,11 @@ def Game():
 def MainMenu():
 
     while True:
-        reponse = input(
-            "Press P to PLAY, Q to QUIT, C for the CREDITS \n").upper()
+        cprint("Press P to PLAY, Q to QUIT, C for the CREDITS")
+        print()
+        reponse = input().upper()
+        #reponse = input(
+        #    "Press P to PLAY, Q to QUIT, C for the CREDITS \n").upper()
 
         if reponse == "P":
             Partie()
@@ -67,7 +86,7 @@ def Partie():
     # Boucle des tours
     while True:
 
-        query = input()
+        query = input().upper()
 
         if query == "GIVE UP":
             MainMenu()
@@ -165,21 +184,24 @@ def VerifierQuery(query):
 
 
 def Quit():
-    print("Unplugging", end="")
-    for period in range(3):
-        time.sleep(0.5)
+    print("Unplugging".center(set_width), end="")
+    print()
+    print("".center((set_width//2)-(5)), end="")
+    for period in range(10):
+        time.sleep(0.2)
         print(".", end="")
     else:
         time.sleep(0.5)
-        print("BRAIN UNPLUGGED!", end="")
+        print()
+        print("BRAIN UNPLUGGED!".center(set_width), end="")
         time.sleep(0.5)
-        print("\nGoodbye.")
+        print()
+        print("Goodbye.".center(set_width))
     quit()
 
 
 def Credit():
-    print(
-        "PROJECT MANAGER\nMaryse Pilote\n\nLEAD DESIGNER\nYanni Haddar\n\nDEVELOPPERS\n\033[0;33;10mQuentin Gastaldo\033[0;38;10m\nMaryse Pilote\nSam Sebille\n\nCopyright Stack Noodles 2022")
+    print("PROJECT MANAGER\nMaryse Pilote\n\nLEAD DESIGNER\nYanni Haddar\n\nDEVELOPPERS\nQuentin Gastaldo\nMaryse Pilote\nSam Sebille\n\nCopyright Stack Noodles 2022")
 
 
 if __name__ == '__main__':
