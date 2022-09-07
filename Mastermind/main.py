@@ -17,6 +17,7 @@ Color = \
      "\033[0;35;10mP\033[0;38;10m"]  # PURPLE
 
 TAILLE_CODE = 4
+NOMBRE_ESSAI = 0
 
 size = shutil.get_terminal_size()
 set_width=size.columns
@@ -96,6 +97,8 @@ def Partie():
         if submit == "erreur":
             print("Mauvaise Entrée")
         else:
+            NOMBRE_ESSAI += 1
+
             # Copie du code secret pour pouvoir le manipuler
             copie_code = code_secret.copy()
             sortie = []
@@ -143,7 +146,8 @@ def Partie():
                 essai += couleur
 
             if (victoire):
-                print(essai + " était le code secret, Bravo !!!!")
+                print(essai + " était le code secret, Bravo !!!! \n" +
+                "Vous avez mis " + NOMBRE_ESSAI + " essais.")
                 MainMenu()
             else:
                 print(
@@ -211,3 +215,4 @@ if __name__ == '__main__':
         Quit()
     except Exception:
         print ("Fatal Error")
+        Quit()
