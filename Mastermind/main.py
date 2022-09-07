@@ -51,8 +51,6 @@ def Game():
     MainMenu()
 
 # Menu principal + choix
-
-
 def MainMenu():
 
     while True:
@@ -161,7 +159,6 @@ def VerifierQuery(query):
     sortie = []
 
     if len(essai) == TAILLE_CODE:
-        i = 0
         for i in range(TAILLE_CODE):
             match essai[i]:
                 case 'B':
@@ -178,7 +175,6 @@ def VerifierQuery(query):
                     sortie.append(Color[5])
                 case _:
                     return "erreur"
-            i += 1
     else:
         return "erreur"
 
