@@ -2,7 +2,7 @@ import random
 import time
 import textwrap
 from colorama import init, Fore, Back, Style
-init(convert=True)
+init()
 
 
 Color = \
@@ -19,22 +19,22 @@ def cprint(txt):
 
 def Start():
     print()
-    txt_logo = (Fore.YELLOW+"    ██\      ██\  ██████\   ██████\  ████████\ ████████\ ███████\  ██\      ██\ ██████\ ██\   ██\ ███████\    \n" +
-                Fore.YELLOW+"    ███\    ███ |██  __██\ ██  __██\ \__██  __|██  _____|██  __██\ ███\    ███ |\_██  _|███\  ██ |██  __██\   \n" +
-                Fore.BLUE+"    ████\  ████ |██ /  ██ |██ /  \__|   ██ |   ██ |      ██ |  ██ |████\  ████ |  ██ |  ████\ ██ |██ |  ██ |  \n" +
-                Fore.BLUE+"    ██\██\██ ██ |████████ |\██████\     ██ |   █████\    ███████  |██\██\██ ██ |  ██ |  ██ ██\██ |██ |  ██ | \n" +
-                Fore.GREEN+"    ██ \███  ██ |██  __██ | \____██\    ██ |   ██  __|   ██  __██< ██ \███  ██ |  ██ |  ██ \████ |██ |  ██ | \n" +
-                Fore.GREEN+"    ██ |\█  /██ |██ |  ██ |██\   ██ |   ██ |   ██ |      ██ |  ██ |██ |\█  /██ |  ██ |  ██ |\███ |██ |  ██ | \n" +
+    txt_logo = (Fore.BLUE+"    ██\      ██\  ██████\   ██████\  ████████\ ████████\ ███████\  ██\      ██\ ██████\ ██\   ██\ ███████\    \n" +
+                Fore.BLUE+"    ███\    ███ |██  __██\ ██  __██\ \__██  __|██  _____|██  __██\ ███\    ███ |\_██  _|███\  ██ |██  __██\   \n" +
+                Fore.GREEN+"    ████\  ████ |██ /  ██ |██ /  \__|   ██ |   ██ |      ██ |  ██ |████\  ████ |  ██ |  ████\ ██ |██ |  ██ |  \n" +
+                Fore.GREEN+"    ██\██\██ ██ |████████ |\██████\     ██ |   █████\    ███████  |██\██\██ ██ |  ██ |  ██ ██\██ |██ |  ██ | \n" +
+                Fore.YELLOW+"    ██ \███  ██ |██  __██ | \____██\    ██ |   ██  __|   ██  __██< ██ \███  ██ |  ██ |  ██ \████ |██ |  ██ | \n" +
+                Fore.YELLOW+"    ██ |\█  /██ |██ |  ██ |██\   ██ |   ██ |   ██ |      ██ |  ██ |██ |\█  /██ |  ██ |  ██ |\███ |██ |  ██ | \n" +
                 Fore.RED+"    ██ | \_/ ██ |██ |  ██ |\██████  |   ██ |   ████████\ ██ |  ██ |██ | \_/ ██ |██████\ ██ | \██ |███████  | \n" +
                 Fore.RED+"    \__|     \__|\__|  \__| \______/    \__|   \________|\__|  \__|\__|     \__|\______|\__|  \__|\_______/  \n")
 
     for line in textwrap.wrap(txt_logo, width=118, drop_whitespace=False, break_on_hyphens=True):
         print(line.center(set_width))
 
-    print(Fore.LIGHTWHITE_EX)
+    print(Fore.WHITE)
     cprint("Developed by" + Fore.YELLOW + " StackNoodles™")
-    cprint(Fore.BLACK + "This work is licensed under a GNU General Public License version 3 (or later version)")
-    print(Fore.LIGHTWHITE_EX+"\n")
+    cprint(Style.DIM + "This work is licensed under a GNU General Public License version 3 (or later version)")
+    print(Fore.WHITE+"\n")
 
 
 # Lancement du programme
@@ -147,15 +147,19 @@ def VerifierQuery(query):
 
 # Fin du programme
 def Quit():
-    print("Unplugging", end="")
-    for period in range(3):
-        time.sleep(0.5)
+    print("Unplugging".center(set_width), end="")
+    print()
+    print("".center(60), end="")
+    for period in range(10):
+        time.sleep(0.2)
         print(".", end="")
     else:
         time.sleep(0.5)
-        print("BRAIN UNPLUGGED!", end="")
+        print()
+        print("BRAIN UNPLUGGED!".center(set_width), end="")
         time.sleep(0.5)
-        print("\nGoodbye.")
+        print()
+        print("Goodbye.".center(set_width))
     quit()
 
 def Credit():
