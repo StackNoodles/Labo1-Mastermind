@@ -42,7 +42,7 @@ def Start():
         print(line.center(set_width))
 
     print(Fore.BLACK + Style.BRIGHT)
-    dev_str = "Developed by" + Fore.YELLOW + " StackNoodles™"
+    dev_str = "    Developed by" + Fore.YELLOW + " StackNoodles™"
     print(dev_str.center(set_width), end="")
     print(Fore.BLACK)
     print("This work is licensed under a GNU General Public License version 3 (or later version)".center(set_width))
@@ -60,9 +60,8 @@ def MainMenu():
 
     while True:
         cprint("Press P to PLAY, Q to QUIT, C for the CREDITS")
-        print()
         str_buffer = ""
-        for whitespace in range((set_width//2)-23):
+        for whitespace in range((set_width//2-(22))):
             str_buffer = str_buffer + " "
         str_buffer = str_buffer + ">>> "
         reponse = input(str_buffer).upper()
@@ -89,7 +88,7 @@ def Partie():
     print()
     cprint("Game Started!")
     str_askcolors = ""
-    for whitespace in range((set_width//3)-3):
+    for whitespace in range((set_width//2)-23):
         str_askcolors = str_askcolors + " "
 
     str_askcolors = str_askcolors + ("Try a " + str(TAILLE_CODE) + " char code [" +
@@ -102,7 +101,7 @@ def Partie():
     while True:
 
         str_buffer = ""
-        for whitespace in range((set_width // 2) - 24):
+        for whitespace in range((set_width // 2) - 23):
             str_buffer = str_buffer + " "
         str_buffer = str_buffer + ">>> "
         query = input(str_buffer).upper()
