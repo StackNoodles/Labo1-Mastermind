@@ -4,9 +4,10 @@ from re import sub
 import time
 import textwrap
 import shutil
+#import pandas as pd
+import string
 from colorama import init, Fore, Back, Style
 init()
-
 
 Color = \
     ["\033[0;34;10mB\033[0;38;10m",  # BLUE
@@ -19,6 +20,8 @@ Color = \
 TAILLE_CODE = 4
 NOMBRE_ESSAI = 0
 
+#desired_width = 400
+#pd.set_option('display.width', desired_width)
 size = shutil.get_terminal_size()
 set_width=size.columns
 def cprint(txt):
@@ -26,21 +29,23 @@ def cprint(txt):
 
 def Start():
     print(Style.NORMAL)
-    txt_logo = (Fore.BLUE+"    ██\      ██\  ██████\   ██████\  ████████\ ████████\ ███████\  ██\      ██\ ██████\ ██\   ██\ ███████\    \n" +
-                Fore.BLUE+"    ███\    ███ |██  __██\ ██  __██\ \__██  __|██  _____|██  __██\ ███\    ███ |\_██  _|███\  ██ |██  __██\   \n" +
-                Fore.GREEN+"    ████\  ████ |██ /  ██ |██ /  \__|   ██ |   ██ |      ██ |  ██ |████\  ████ |  ██ |  ████\ ██ |██ |  ██ |  \n" +
-                Fore.GREEN+"    ██\██\██ ██ |████████ |\██████\     ██ |   █████\    ███████  |██\██\██ ██ |  ██ |  ██ ██\██ |██ |  ██ | \n" +
-                Fore.YELLOW+"    ██ \███  ██ |██  __██ | \____██\    ██ |   ██  __|   ██  __██< ██ \███  ██ |  ██ |  ██ \████ |██ |  ██ | \n" +
-                Fore.YELLOW+"    ██ |\█  /██ |██ |  ██ |██\   ██ |   ██ |   ██ |      ██ |  ██ |██ |\█  /██ |  ██ |  ██ |\███ |██ |  ██ | \n" +
-                Fore.RED+"    ██ | \_/ ██ |██ |  ██ |\██████  |   ██ |   ████████\ ██ |  ██ |██ | \_/ ██ |██████\ ██ | \██ |███████  | \n" +
-                Fore.RED+"    \__|     \__|\__|  \__| \______/    \__|   \________|\__|  \__|\__|     \__|\______|\__|  \__|\_______/  \n")
+    txt_logo = (Fore.BLUE+"    ██\      ██\  ██████\   ██████\  ████████\ ████████\ ███████\  ██\      ██\ ██████\ ██\   ██\ ███████\ \n" +
+                Fore.BLUE+"    ███\    ███ |██  __██\ ██  __██\ \__██  __|██  _____|██  __██\ ███\    ███ |\_██  _|███\  ██ |██  __██\\\n" +
+                Fore.GREEN+"    ████\  ████ |██ /  ██ |██ /  \__|   ██ |   ██ |      ██ |  ██ |████\  ████ |  ██ |  ████\ ██ |██ |  ██ |\n" +
+                Fore.GREEN+"    ██\██\██ ██ |████████ |\██████\     ██ |   █████\    ███████  |██\██\██ ██ |  ██ |  ██ ██\██ |██ |  ██ |\n" +
+                Fore.YELLOW+"    ██ \███  ██ |██  __██ | \____██\    ██ |   ██  __|   ██  __██< ██ \███  ██ |  ██ |  ██ \████ |██ |  ██ |\n" +
+                Fore.YELLOW+"    ██ |\█  /██ |██ |  ██ |██\   ██ |   ██ |   ██ |      ██ |  ██ |██ |\█  /██ |  ██ |  ██ |\███ |██ |  ██ |\n" +
+                Fore.RED+"    ██ | \_/ ██ |██ |  ██ |\██████  |   ██ |   ████████\ ██ |  ██ |██ | \_/ ██ |██████\ ██ | \██ |███████  |\n" +
+                Fore.RED+"    \__|     \__|\__|  \__| \______/    \__|   \________|\__|  \__|\__|     \__|\______|\__|  \__|\_______/\n")
 
-    for line in textwrap.wrap(txt_logo, width=118, drop_whitespace=False):
+    for line in textwrap.wrap(txt_logo, width=116, drop_whitespace=False):
         print(line.center(set_width))
 
-    print(Style.BRIGHT)
-    cprint(Fore.BLACK + "Developed by" + Fore.YELLOW + " StackNoodles™")
-    cprint(Fore.BLACK + "This work is licensed under a GNU General Public License version 3 (or later version)")
+    print(Fore.BLACK + Style.BRIGHT)
+    dev_str = "Developed by" + Fore.YELLOW + " StackNoodles™"
+    print(dev_str.center(set_width), end="")
+    print(Fore.BLACK)
+    print("This work is licensed under a GNU General Public License version 3 (or later version)".center(set_width))
     print(Style.RESET_ALL)
 
 
@@ -56,12 +61,16 @@ def MainMenu():
     while True:
         cprint("Press P to PLAY, Q to QUIT, C for the CREDITS")
         print()
-        reponse = input().upper()
-        #reponse = input(
-        #    "Press P to PLAY, Q to QUIT, C for the CREDITS \n").upper()
+        str_buffer = ""
+        for whitespace in range((set_width//2)-23):
+            str_buffer = str_buffer + " "
+        str_buffer = str_buffer + ">>> "
+        reponse = input(str_buffer).upper()
 
         if reponse == "P":
             Partie()
+        elif reponse == "KILL":
+            QuickQuit()
         elif reponse == "Q":
             Quit()
         elif reponse == "C":
@@ -77,15 +86,29 @@ def Partie():
         code_secret.append(Color[random.randint(0, 5)])
 
     # Entrée dans la partie
-    print("Try a " + str(TAILLE_CODE) + " char code [" +
+    print()
+    cprint("Game Started!")
+    str_askcolors = ""
+    for whitespace in range((set_width//3)-3):
+        str_askcolors = str_askcolors + " "
+
+    str_askcolors = str_askcolors + ("Try a " + str(TAILLE_CODE) + " char code [" +
           Color[0] + ", " + Color[1] + ", " + Color[2] + ", " +
           Color[3] + ", " + Color[4] + ", " + Color[5]
-          + "] or \033[0;32;10mGIVE UP\033[0;38;10m")
+          + "] or \033[0;32;10mGIVE UP\033[0;38;10m\033[1m" + Fore.GREEN + Style.DIM)
 
+    print(str_askcolors.center(set_width))
     # Boucle des tours
     while True:
 
-        query = input().upper()
+        str_buffer = ""
+        for whitespace in range((set_width // 2) - 24):
+            str_buffer = str_buffer + " "
+        str_buffer = str_buffer + ">>> "
+        query = input(str_buffer).upper()
+        print(Style.RESET_ALL)
+        if query == "KILL":
+            QuickQuit()
 
         if query == "GIVE UP":
             MainMenu()
@@ -186,7 +209,7 @@ def VerifierQuery(query):
 def Quit():
     print("Unplugging".center(set_width), end="")
     print()
-    print("".center((set_width//2)-(5)), end="")
+    print("".center((set_width//2)-(4)), end="")
     for period in range(10):
         time.sleep(0.2)
         print(".", end="")
@@ -199,6 +222,10 @@ def Quit():
         print("Goodbye.".center(set_width))
     quit()
 
+def QuickQuit():
+    print(Fore.RED)
+    print("Goodbye.".center(set_width))
+    quit()
 
 def Credit():
     print("PROJECT MANAGER\nMaryse Pilote\n\nLEAD DESIGNER\nYanni Haddar\n\nDEVELOPPERS\nQuentin Gastaldo\nMaryse Pilote\nSam Sebille\n\nCopyright Stack Noodles 2022")
@@ -208,7 +235,8 @@ if __name__ == '__main__':
     try:
         Game()
     except KeyboardInterrupt:
-        Quit()
-    except Exception:
-        print ("Fatal Error")
-        Quit()
+        QuickQuit()
+    except Exception as e:
+        print ("Fatal Error:")
+        print(e)
+        QuickQuit()
