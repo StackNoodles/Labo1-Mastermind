@@ -24,7 +24,7 @@ TAILLE_CODE = 4
 def cprint(txt):
     print(txt.center(set_width))
 
-def Start():
+def start():
     print(Style.NORMAL)
     txt_logo = (Fore.BLUE+"    ██\      ██\  ██████\   ██████\  ████████\ ████████\ ███████\  ██\      ██\ ██████\ ██\   ██\ ███████\ \n" +
                 Fore.BLUE+"    ███\    ███ |██  __██\ ██  __██\ \__██  __|██  _____|██  __██\ ███\    ███ |\_██  _|███\  ██ |██  __██\\\n" +
@@ -47,13 +47,13 @@ def Start():
 
 
 # Lancement du programme
-def Game():
-    Start()
+def game():
+    start()
 
-    MainMenu()
+    main_menu()
 
 # Menu principal + choix
-def MainMenu():
+def main_menu():
 
     while True:
         cprint("Press P to PLAY, Q to QUIT, C for the CREDITS")
@@ -65,17 +65,17 @@ def MainMenu():
         reponse = input(str_buffer).upper()
 
         if reponse == "P":
-            Partie()
+            partie()
         elif reponse == "KILL":
-            QuickQuit()
+            quick_quit()
         elif reponse == "Q":
-            Quit()
+            slow_quit()
         elif reponse == "C":
-            Credit()
+            credit()
 
 
 # Partie de Mastermind
-def Partie():
+def partie():
     # Code a deviner
     code_secret = []
     NOMBRE_ESSAI = 0
@@ -103,12 +103,12 @@ def Partie():
         str_buffer = str_buffer + ">>> "
         query = input(str_buffer).upper()
         if query == "KILL":
-            QuickQuit()
+            quick_quit()
 
         elif query == "GIVE UP":
             cprint(Style.RESET_ALL + Fore.YELLOW + "         Chicken")
             print(Style.RESET_ALL)
-            MainMenu()
+            main_menu()
 
         elif query == "HACK":
             str_cheat = ""
@@ -120,7 +120,7 @@ def Partie():
                 str_cheat = str_cheat + code
             print(Fore.RED + str_cheat)
 
-        submit = VerifierQuery(query)
+        submit = verifier_query(query)
 
         if submit == "erreur":
             print(Style.RESET_ALL + Fore.RED + "Wrong input ".center(set_width) + Style.RESET_ALL + Fore.YELLOW + Style.BRIGHT)
@@ -184,7 +184,7 @@ def Partie():
                 str_triespad = str_triespad + " "
             print(str_triespad + "Congrats!! It took you " + str(NOMBRE_ESSAI) + " step(s).")
             print()
-            MainMenu()
+            main_menu()
         else:
             str_essai = ""
             for whitespace in range((set_width//2)-19):
@@ -194,7 +194,7 @@ def Partie():
 # Verification et traduction de l'entrée de l'utilisateur
 
 
-def VerifierQuery(query):
+def verifier_query(query):
     essai = list(query)
     sortie = []
 
@@ -223,7 +223,7 @@ def VerifierQuery(query):
 # Fin du programme
 
 
-def Quit():
+def slow_quit():
     print("Unplugging".center(set_width))
     print("".center((set_width//2)-(5   )), end="")
     for period in range(5):
@@ -238,12 +238,12 @@ def Quit():
         print(" Goodbye.".center(set_width))
     quit()
 
-def QuickQuit():
+def quick_quit():
     print(Style.RESET_ALL + Fore.RED)
     print("Goodbye".center(set_width))
     quit()
 
-def Credit():
+def credit():
     print(Fore.BLUE)
     print("PROJECT COORDINATOR".center(set_width), end = "")
     print("Maryse Pilote".center(set_width))
@@ -263,11 +263,11 @@ def Credit():
 
 if __name__ == '__main__':
     try:
-        Game()
+        game()
     except KeyboardInterrupt:
-        QuickQuit()
+        quick_quit()
     except Exception as e:
         print(Style.RESET_ALL + Fore.RED)
         print ("    > Fatal Error:")
         print("    > "+e)
-        QuickQuit()
+        quick_quit()
