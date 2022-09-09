@@ -59,8 +59,9 @@ def MainMenu():
     while True:
         cprint("Press P to PLAY, Q to QUIT, C for the CREDITS")
         str_buffer = ""
-        for whitespace in range((set_width//2-(22))):
+        for whitespace in range((set_width//2-(23))):
             str_buffer = str_buffer + " "
+
         str_buffer = str_buffer + ">>> "
         reponse = input(str_buffer).upper()
 
@@ -224,7 +225,7 @@ def VerifierQuery(query):
 
 def Quit():
     print("Unplugging".center(set_width))
-    print("".center((set_width//2)-(5)), end="")
+    print("".center((set_width//2)-(5   )), end="")
     for period in range(5):
         time.sleep(0.2)
         print(". ", end="")
