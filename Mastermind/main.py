@@ -224,10 +224,10 @@ def VerifierQuery(query):
 
 def Quit():
     print("Unplugging".center(set_width))
-    print("".center((set_width//2)-(4)), end="")
-    for period in range(10):
+    print("".center((set_width//2)-(5)), end="")
+    for period in range(5):
         time.sleep(0.2)
-        print(".", end="")
+        print(". ", end="")
     else:
         time.sleep(0.5)
         print()
