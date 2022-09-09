@@ -9,6 +9,9 @@ import string
 from colorama import init, Fore, Back, Style
 init()
 
+size = shutil.get_terminal_size()
+set_width=size.columns
+
 Color = \
     ["\033[0;34;10mB\033[0;38;10m",  # BLUE
      "\033[0;32;10mG\033[0;38;10m",  # GREEN
@@ -18,12 +21,7 @@ Color = \
      "\033[0;35;10mP\033[0;38;10m"]  # PURPLE
 
 TAILLE_CODE = 4
-NOMBRE_ESSAI = 0
 
-#desired_width = 400
-#pd.set_option('display.width', desired_width)
-size = shutil.get_terminal_size()
-set_width=size.columns
 def cprint(txt):
     print(txt.center(set_width))
 
@@ -80,7 +78,7 @@ def MainMenu():
 def Partie():
     # Code a deviner
     code_secret = []
-
+    NOMBRE_ESSAI = 0
     for i in range(TAILLE_CODE):
         code_secret.append(Color[random.randint(0, 5)])
 
@@ -91,31 +89,41 @@ def Partie():
     for whitespace in range((set_width//2)-23):
         str_askcolors = str_askcolors + " "
 
-    str_askcolors = str_askcolors + ("Try a " + str(TAILLE_CODE) + " char code [" +
+    str_askcolors = str_askcolors + (Style.RESET_ALL + "Try a " + str(TAILLE_CODE) + " char code [" +
           Color[0] + ", " + Color[1] + ", " + Color[2] + ", " +
           Color[3] + ", " + Color[4] + ", " + Color[5]
-          + "] or \033[0;32;10mGIVE UP\033[0;38;10m\033[1m" + Fore.GREEN + Style.DIM)
+          + "] or \033[0;32;10mGIVE UP\033[0;38;10m\033[1m" + Fore.YELLOW + Style.BRIGHT)
 
     print(str_askcolors.center(set_width))
     # Boucle des tours
     while True:
-
         str_buffer = ""
         for whitespace in range((set_width // 2) - 23):
             str_buffer = str_buffer + " "
         str_buffer = str_buffer + ">>> "
         query = input(str_buffer).upper()
-        print(Style.RESET_ALL)
         if query == "KILL":
             QuickQuit()
 
-        if query == "GIVE UP":
+        elif query == "GIVE UP":
+            cprint(Style.RESET_ALL + Fore.YELLOW + "         Chicken")
+            print(Style.RESET_ALL)
             MainMenu()
+
+        elif query == "HACK":
+            str_cheat = ""
+            for whitespace in range((set_width//2)-23):
+                str_cheat = str_cheat + " "
+
+            str_cheat = str_cheat + "ans:"
+            for code in code_secret:
+                str_cheat = str_cheat + code
+            print(Fore.RED + str_cheat)
 
         submit = VerifierQuery(query)
 
         if submit == "erreur":
-            print("Mauvaise Entrée")
+            print(Style.RESET_ALL + Fore.RED + "Wrong input ".center(set_width) + Style.RESET_ALL + Fore.YELLOW + Style.BRIGHT)
         else:
             NOMBRE_ESSAI += 1
 
@@ -149,9 +157,7 @@ def Partie():
                         copie_code[k] = ''
                         # On ne veut en supprimer qu'un seul
                         break
-
                     k += 1
-
                 j += 1
 
             victoire = True
@@ -166,13 +172,24 @@ def Partie():
                 essai += couleur
 
             if (victoire):
-                print(essai + " était le code secret, Bravo !!!! \n" +
-                "Vous avez mis " + NOMBRE_ESSAI + " essais.")
+                str_winpad = ""
+                for whitespace in range((set_width//2)-12):
+                    str_winpad = str_winpad + " "
+
+                print(str_winpad + essai + " was the secret code.")
+
+                str_triespad = ""
+                for whitespace in range((set_width//2)-16):
+                    str_triespad = str_triespad + " "
+                print(str_triespad + "Congrats!! It took you " + str(NOMBRE_ESSAI) + " step(s).")
+                print()
                 MainMenu()
             else:
-                print(
-                    essai + " --> [" + chaine + "] (! = Bonne Couleur + Bonne Position ; ? = Bonne Couleur)")
-
+                str_essai = ""
+                for whitespace in range((set_width//2)-19):
+                    str_essai = str_essai + " "
+                print(str_essai + essai + " --> [" + chaine + "] (? = Color; ! = Color + Position)" + Style.RESET_ALL + Fore.YELLOW + Style.BRIGHT)
+                print()
 # Verification et traduction de l'entrée de l'utilisateur
 
 
@@ -206,8 +223,7 @@ def VerifierQuery(query):
 
 
 def Quit():
-    print("Unplugging".center(set_width), end="")
-    print()
+    print("Unplugging".center(set_width))
     print("".center((set_width//2)-(4)), end="")
     for period in range(10):
         time.sleep(0.2)
@@ -218,17 +234,31 @@ def Quit():
         print("BRAIN UNPLUGGED!".center(set_width), end="")
         time.sleep(0.5)
         print()
-        print("Goodbye.".center(set_width))
+        print(" Goodbye.".center(set_width))
     quit()
 
 def QuickQuit():
-    print(Fore.RED)
-    print("Goodbye.".center(set_width))
+    print(Style.RESET_ALL + Fore.RED)
+    print("Goodbye".center(set_width))
     quit()
 
 def Credit():
-    print("PROJECT MANAGER\nMaryse Pilote\n\nLEAD DESIGNER\nYanni Haddar\n\nDEVELOPPERS\nQuentin Gastaldo\nMaryse Pilote\nSam Sebille\n\nCopyright Stack Noodles 2022")
-
+    print(Fore.BLUE)
+    print("PROJECT COORDINATOR".center(set_width), end = "")
+    print(Style.DIM + "Maryse Pilote".center(set_width))
+    time.sleep(0.5)
+    print(Fore.GREEN)
+    print("QUALITY CONTROL".center(set_width), end = "")
+    cprint("Sam Sebille")
+    time.sleep(0.5)
+    print(Fore.YELLOW)
+    print("LEAD DESIGNER".center(set_width), end = "")
+    cprint("Yanni Haddar")
+    time.sleep(0.5)
+    print(Fore.RED)
+    print("LEAD PROGRAMMER".center(set_width), end = "")
+    cprint("Quentin Gastaldo")
+    print(Style.RESET_ALL)
 
 if __name__ == '__main__':
     try:
@@ -236,6 +266,7 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         QuickQuit()
     except Exception as e:
-        print ("Fatal Error:")
-        print(e)
+        print(Style.RESET_ALL + Fore.RED)
+        print ("    > Fatal Error:")
+        print("    > "+e)
         QuickQuit()
