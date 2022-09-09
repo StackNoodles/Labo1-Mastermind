@@ -7,7 +7,6 @@ import shutil
 #import pandas as pd
 import string
 from colorama import init, Fore, Back, Style
-init()
 
 size = shutil.get_terminal_size()
 set_width=size.columns
@@ -49,6 +48,8 @@ def Start():
 
 # Lancement du programme
 def Game():
+    init()
+
     Start()
 
     MainMenu()
@@ -172,7 +173,7 @@ def Partie():
             for couleur in submit:
                 essai += couleur
 
-            if (victoire):
+            if victoire:
                 str_winpad = ""
                 for whitespace in range((set_width//2)-12):
                     str_winpad = str_winpad + " "
@@ -220,12 +221,10 @@ def VerifierQuery(query):
 
     return sortie
 
-# Fin du programme
-
 
 def Quit():
     print("Unplugging".center(set_width))
-    print("".center((set_width//2)-(5   )), end="")
+    print("".center((set_width//2)-5), end="")
     for period in range(5):
         time.sleep(0.2)
         print(". ", end="")
