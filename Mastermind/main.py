@@ -246,7 +246,7 @@ def QuickQuit():
 def Credit():
     print(Fore.BLUE)
     print("PROJECT COORDINATOR".center(set_width), end = "")
-    print(Style.DIM + "Maryse Pilote".center(set_width))
+    print("Maryse Pilote".center(set_width))
     time.sleep(0.5)
     print(Fore.GREEN)
     print("QUALITY CONTROL".center(set_width), end = "")
