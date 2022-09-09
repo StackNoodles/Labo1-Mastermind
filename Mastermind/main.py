@@ -4,13 +4,12 @@ from re import sub
 import time
 import textwrap
 import shutil
-#import pandas as pd
 import string
 from colorama import init, Fore, Back, Style
 init()
 
-size = shutil.get_terminal_size()
-set_width=size.columns
+SIZE = shutil.get_terminal_size()
+set_width = SIZE.columns
 
 Color = \
     ["\033[0;34;10mB\033[0;38;10m",  # BLUE
@@ -125,72 +124,73 @@ def Partie():
 
         if submit == "erreur":
             print(Style.RESET_ALL + Fore.RED + "Wrong input ".center(set_width) + Style.RESET_ALL + Fore.YELLOW + Style.BRIGHT)
-        else:
-            NOMBRE_ESSAI += 1
+        else: continue
+        
+        NOMBRE_ESSAI += 1
 
-            # Copie du code secret pour pouvoir le manipuler
-            copie_code = code_secret.copy()
-            sortie = []
+        # Copie du code secret pour pouvoir le manipuler
+        copie_code = code_secret.copy()
+        sortie = []
 
-            i = 0
-            for i in range(TAILLE_CODE):
-                sortie.append(' ')
-            s = 0
+        i = 0
+        for i in range(TAILLE_CODE):
+            sortie.append(' ')
+        s = 0
 
-            i = 0
-            for char in submit:
-                # Si le charactere correspond, ecrit '!' dans la sortie et on supprime le char correspondant dans la copie du code secret
-                if char == copie_code[i]:
-                    sortie[s] = '!'
+        i = 0
+        for char in submit:
+            # Si le charactere correspond, ecrit '!' dans la sortie et on supprime le char correspondant dans la copie du code secret
+            if char == copie_code[i]:
+                sortie[s] = '!'
+                s += 1
+                copie_code[i] = ''
+
+            i += 1
+
+        j = 0
+        for char in submit:
+            k = 0
+            for code in copie_code:
+                # Si le char correspond a un de ceux du code secret, on écrit '?' dans la sortie et on supprime le char correspondant
+                if char == code and sortie[j] != '!':
+                    sortie[s] = '?'
                     s += 1
-                    copie_code[i] = ''
+                    copie_code[k] = ''
+                    # On ne veut en supprimer qu'un seul
+                    break
+                k += 1
+            j += 1
 
-                i += 1
+        victoire = True
+        chaine = ''
+        for reponse in sortie:
+            chaine += reponse
+            if reponse != '!':
+                victoire = False
 
-            j = 0
-            for char in submit:
-                k = 0
-                for code in copie_code:
-                    # Si le char correspond a un de ceux du code secret, on écrit '?' dans la sortie et on supprime le char correspondant
-                    if char == code and sortie[j] != '!':
-                        sortie[s] = '?'
-                        s += 1
-                        copie_code[k] = ''
-                        # On ne veut en supprimer qu'un seul
-                        break
-                    k += 1
-                j += 1
+        essai = ''
+        for couleur in submit:
+            essai += couleur
 
-            victoire = True
-            chaine = ''
-            for reponse in sortie:
-                chaine += reponse
-                if reponse != '!':
-                    victoire = False
+        if (victoire):
+            str_winpad = ""
+            for whitespace in range((set_width//2)-12):
+                str_winpad = str_winpad + " "
 
-            essai = ''
-            for couleur in submit:
-                essai += couleur
+            print(str_winpad + essai + " was the secret code.")
 
-            if (victoire):
-                str_winpad = ""
-                for whitespace in range((set_width//2)-12):
-                    str_winpad = str_winpad + " "
-
-                print(str_winpad + essai + " was the secret code.")
-
-                str_triespad = ""
-                for whitespace in range((set_width//2)-16):
-                    str_triespad = str_triespad + " "
-                print(str_triespad + "Congrats!! It took you " + str(NOMBRE_ESSAI) + " step(s).")
-                print()
-                MainMenu()
-            else:
-                str_essai = ""
-                for whitespace in range((set_width//2)-19):
-                    str_essai = str_essai + " "
-                print(str_essai + essai + " --> [" + chaine + "] (? = Color; ! = Color + Position)" + Style.RESET_ALL + Fore.YELLOW + Style.BRIGHT)
-                print()
+            str_triespad = ""
+            for whitespace in range((set_width//2)-16):
+                str_triespad = str_triespad + " "
+            print(str_triespad + "Congrats!! It took you " + str(NOMBRE_ESSAI) + " step(s).")
+            print()
+            MainMenu()
+        else:
+            str_essai = ""
+            for whitespace in range((set_width//2)-19):
+                str_essai = str_essai + " "
+            print(str_essai + essai + " --> [" + chaine + "] (? = Color; ! = Color + Position)" + Style.RESET_ALL + Fore.YELLOW + Style.BRIGHT)
+            print()
 # Verification et traduction de l'entrée de l'utilisateur
 
 
