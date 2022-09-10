@@ -228,13 +228,14 @@ def slow_quit():
     for period in range(5):
         time.sleep(0.2)
         print(". ", end="")
-    else:
-        time.sleep(0.5)
-        print()
-        print("BRAIN UNPLUGGED!".center(TERMINAL_WIDTH), end="")
-        time.sleep(0.5)
-        print()
-        print(" Goodbye.".center(TERMINAL_WIDTH))
+        
+    time.sleep(0.5)
+    print()
+    print("BRAIN UNPLUGGED!".center(TERMINAL_WIDTH), end="")
+    time.sleep(0.5)
+    print()
+    print(" Goodbye.".center(TERMINAL_WIDTH))
+
     quit()
 
 def quick_quit():
