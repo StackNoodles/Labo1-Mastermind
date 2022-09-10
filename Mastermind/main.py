@@ -9,7 +9,7 @@ from colorama import init, Fore, Back, Style
 init()
 
 SIZE = shutil.get_terminal_size()
-set_width = SIZE.columns
+TERMINAL_WIDTH = SIZE.columns
 
 Color = \
     ["\033[0;34;10mB\033[0;38;10m",  # BLUE
