@@ -24,7 +24,7 @@ TAILLE_CODE = 4
 def cprint(txt):
     print(txt.center(TERMINAL_WIDTH))
 
-def Start():
+def start():
     print(Style.NORMAL)
     txt_logo = (Fore.BLUE+"    ██\      ██\  ██████\   ██████\  ████████\ ████████\ ███████\  ██\      ██\ ██████\ ██\   ██\ ███████\ \n" +
                 Fore.BLUE+"    ███\    ███ |██  __██\ ██  __██\ \__██  __|██  _____|██  __██\ ███\    ███ |\_██  _|███\  ██ |██  __██\\\n" +
@@ -47,16 +47,16 @@ def Start():
 
 
 # Lancement du programme
-def Game():
-    Start()
+def game():
+    start()
 
-    MainMenu()
+    main_menu()
 
 # Menu principal + choix
-def MainMenu():
+def main_menu():
 
     while True:
-        cprint("Press P to PLAY, Q to QUIT, C for the CREDITS")
+        cprint("Press P to PLAY, Q to QUIT, C for the creditS")
         str_buffer = ""
         for whitespace in range((TERMINAL_WIDTH // 2 - (23))):
             str_buffer = str_buffer + " "
@@ -65,17 +65,17 @@ def MainMenu():
         reponse = input(str_buffer).upper()
 
         if reponse == "P":
-            Partie()
+            partie()
         elif reponse == "KILL":
-            QuickQuit()
+            quick_quit()
         elif reponse == "Q":
-            Quit()
+            slow_quit()
         elif reponse == "C":
-            Credit()
+            credit()
 
 
-# Partie de Mastermind
-def Partie():
+# partie de Mastermind
+def partie():
     # Code a deviner
     code_secret = []
     NOMBRE_ESSAI = 0
@@ -84,7 +84,7 @@ def Partie():
 
     # Entrée dans la partie
     print()
-    cprint("Game Started!")
+    cprint("game started!")
     str_askcolors = ""
     for whitespace in range((TERMINAL_WIDTH // 2) - 23):
         str_askcolors = str_askcolors + " "
@@ -103,12 +103,12 @@ def Partie():
         str_buffer = str_buffer + ">>> "
         query = input(str_buffer).upper()
         if query == "KILL":
-            QuickQuit()
+            quick_quit()
 
         elif query == "GIVE UP":
             cprint(Style.RESET_ALL + Fore.YELLOW + "         Chicken")
             print(Style.RESET_ALL)
-            MainMenu()
+            main_menu()
 
         elif query == "HACK":
             str_cheat = ""
@@ -120,7 +120,7 @@ def Partie():
                 str_cheat = str_cheat + code
             print(Fore.RED + str_cheat)
 
-        submit = VerifierQuery(query)
+        submit = verifier_query(query)
 
         if submit == "erreur":
             print(Style.RESET_ALL + Fore.RED + "Wrong input ".center(TERMINAL_WIDTH) + Style.RESET_ALL + Fore.YELLOW + Style.BRIGHT)
@@ -183,7 +183,7 @@ def Partie():
                     str_triespad = str_triespad + " "
                 print(str_triespad + "Congrats!! It took you " + str(NOMBRE_ESSAI) + " step(s).")
                 print()
-                MainMenu()
+                main_menu()
             else:
                 str_essai = ""
                 for whitespace in range((TERMINAL_WIDTH // 2) - 19):
@@ -193,7 +193,7 @@ def Partie():
 # Verification et traduction de l'entrée de l'utilisateur
 
 
-def VerifierQuery(query):
+def verifier_query(query):
     essai = list(query)
     sortie = []
 
@@ -222,7 +222,7 @@ def VerifierQuery(query):
 # Fin du programme
 
 
-def Quit():
+def slow_quit():
     print("Unplugging".center(TERMINAL_WIDTH))
     print("".center((TERMINAL_WIDTH // 2) - (5)), end="")
     for period in range(5):
@@ -237,12 +237,12 @@ def Quit():
         print(" Goodbye.".center(TERMINAL_WIDTH))
     quit()
 
-def QuickQuit():
+def quick_quit():
     print(Style.RESET_ALL + Fore.RED)
     print("Goodbye".center(TERMINAL_WIDTH))
     quit()
 
-def Credit():
+def credit():
     print(Fore.BLUE)
     print("PROJECT COORDINATOR".center(TERMINAL_WIDTH), end ="")
     print("Maryse Pilote".center(TERMINAL_WIDTH))
@@ -262,11 +262,11 @@ def Credit():
 
 if __name__ == '__main__':
     try:
-        Game()
+        game()
     except KeyboardInterrupt:
-        QuickQuit()
+        quick_quit()
     except Exception as e:
         print(Style.RESET_ALL + Fore.RED)
         print ("    > Fatal Error:")
-        print("    > "+e)
-        QuickQuit()
+        print("    > " + str(e))
+        quick_quit()
