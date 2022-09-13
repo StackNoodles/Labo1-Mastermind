@@ -100,6 +100,7 @@ def partie():
 
     # Boucle des tours
     while True:
+
         str_buffer = ""
         for whitespace in range((TERMINAL_WIDTH // 2) - 23):
             str_buffer = str_buffer + " "
@@ -123,80 +124,82 @@ def partie():
 
             for key, value in code_secret:
                 str_cheat = str_cheat + value
-
+            
             print(Fore.RED + str_cheat + Fore.YELLOW)
+            continue
+
+        elif query == '' :
+            continue
+
+           
 
         submit = verifier_query(query)
 
-        if submit == '':
-            pass
-        elif submit == "erreur":
+        if submit == "erreur":
             print(Style.RESET_ALL + Fore.RED + "Wrong input ".center(TERMINAL_WIDTH) + Style.RESET_ALL + Fore.YELLOW + Style.BRIGHT)
-        else: 
-            NOMBRE_ESSAI += 1
+            continue
 
-            # Copie du code secret pour pouvoir le manipuler
-            copie_code = code_secret.copy()
-            copie_submit = submit.copy()
-            sortie = []
+        NOMBRE_ESSAI += 1
 
-            for i,(k,v) in enumerate(copie_code):
-                if v == copie_submit[i]:
-                    sortie.append('!')
-                    copie_code[i] = (k, 'X')
+        # Copie du code secret pour pouvoir le manipuler
+        copie_code = code_secret.copy()
+        copie_submit = submit.copy()
+        sortie = []
+
+        for i,(k,v) in enumerate(copie_code):
+            if v == copie_submit[i]:
+                sortie.append('!')
+                copie_code[i] = (k, 'X')
+                copie_submit[i] = ''
+        
+        for i, digit in enumerate(copie_submit):
+            for j, (k,v) in enumerate(copie_code):
+                if digit == v:
+                    sortie.append('?')
+                    copie_code[j] = (k, 'X')
                     copie_submit[i] = ''
-            
-            for i, digit in enumerate(copie_submit):
-                for j, (k,v) in enumerate(copie_code):
-                    if digit == v:
-                        sortie.append('?')
-                        copie_code[j] = (k, 'X')
-                        copie_submit[i] = ''
-                        break
+                    break
 
 
-            victoire = True
-            chaine = ''
-            for i in range(TAILLE_CODE):
-                if i < len(sortie) :
-                    chaine += sortie[i]
+        victoire = True
+        chaine = ''
+        for i in range(TAILLE_CODE):
+            if i < len(sortie) :
+                chaine += sortie[i]
 
-                    if sortie[i] != '!' :
-                        victoire = False
-                else:
-                    chaine += ' '
+                if sortie[i] != '!' :
                     victoire = False
-
-            essai = ''
-            for couleur in submit:
-                essai += couleur
-
-            if (victoire):
-                str_winpad = ""
-                for whitespace in range((TERMINAL_WIDTH // 2) - 12):
-                    str_winpad = str_winpad + " "
-
-                print(str_winpad + essai + " was the secret code.")
-
-                str_triespad = ""
-                for whitespace in range((TERMINAL_WIDTH // 2) - 16):
-                    str_triespad = str_triespad + " "
-                print(str_triespad + "Congrats!! It took you " + str(NOMBRE_ESSAI) + " step(s).")
-                print()
-                main_menu()
             else:
-                str_essai = ""
-                for whitespace in range((TERMINAL_WIDTH // 2) - 19):
-                    str_essai = str_essai + " "
-                print(str_essai + essai + " --> [" + chaine + "] (? = Color; ! = Color + Position)" + Style.RESET_ALL + Fore.YELLOW + Style.BRIGHT)
-                print()
+                chaine += ' '
+                victoire = False
+
+        essai = ''
+        for couleur in submit:
+            essai += couleur
+
+        if (victoire):
+            str_winpad = ""
+            for whitespace in range((TERMINAL_WIDTH // 2) - 12):
+                str_winpad = str_winpad + " "
+
+            print(str_winpad + essai + " was the secret code.")
+
+            str_triespad = ""
+            for whitespace in range((TERMINAL_WIDTH // 2) - 16):
+                str_triespad = str_triespad + " "
+            print(str_triespad + "Congrats!! It took you " + str(NOMBRE_ESSAI) + " step(s).")
+            print()
+            main_menu()
+        else:
+            str_essai = ""
+            for whitespace in range((TERMINAL_WIDTH // 2) - 19):
+                str_essai = str_essai + " "
+            print(str_essai + essai + " --> [" + chaine + "] (? = Color; ! = Color + Position)" + Style.RESET_ALL + Fore.YELLOW + Style.BRIGHT)
+            print()
 # Verification et traduction de l'entrée de l'utilisateur
 
 
 def verifier_query(query):
-
-    if query == "HACK" or query == '':
-        return ''
 
     essai = list(query)
     sortie = []
