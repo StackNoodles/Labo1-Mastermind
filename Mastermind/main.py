@@ -195,7 +195,7 @@ def play():
                   Style.RESET_ALL + Fore.YELLOW + Style.BRIGHT)
             print()
 
-def debut_partie():
+def play_menu():
     # Entrée dans la partie
     print()
     cprint("game started!")
