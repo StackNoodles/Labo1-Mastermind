@@ -12,19 +12,21 @@ init()
 SIZE = shutil.get_terminal_size()
 TERMINAL_WIDTH = SIZE.columns
 
-Color = {
-    "B" : "\033[0;34;10mB\033[0;38;10m",  # BLUE
-    "G" : "\033[0;32;10mG\033[0;38;10m",  # GREEN
-    "R" : "\033[0;31;10mR\033[0;38;10m",  # RED
-    "Y" : "\033[0;33;10mY\033[0;38;10m",  # YELLOW
-    "C" : "\033[0;36;10mC\033[0;38;10m",  # CYAN
-    "P" : "\033[0;35;10mP\033[0;38;10m"  # PURPLE
-     }
+Colors = {
+    "B": "\033[0;34;10mB\033[0;38;10m",  # BLUE
+    "G": "\033[0;32;10mG\033[0;38;10m",  # GREEN
+    "R": "\033[0;31;10mR\033[0;38;10m",  # RED
+    "Y": "\033[0;33;10mY\033[0;38;10m",  # YELLOW
+    "C": "\033[0;36;10mC\033[0;38;10m",  # CYAN
+    "P": "\033[0;35;10mP\033[0;38;10m"  # PURPLE
+}
 
-TAILLE_CODE = 4
+CODE_SIZE = 4
+
 
 def cprint(txt):
     print(txt.center(TERMINAL_WIDTH))
+
 
 def start():
     print(Style.NORMAL)
@@ -44,9 +46,9 @@ def start():
     dev_str = "    Developed by" + Fore.YELLOW + " StackNoodles™"
     print(dev_str.center(TERMINAL_WIDTH), end="")
     print(Fore.BLACK)
-    print("This work is licensed under a GNU General Public License version 3 (or later version)".center(TERMINAL_WIDTH))
+    print("This work is licensed under a GNU General Public License version 3 (or later version)".center(
+        TERMINAL_WIDTH))
     print(Style.RESET_ALL)
-
 
 # Lancement du programme
 def game():
@@ -67,7 +69,7 @@ def main_menu():
         reponse = input(str_buffer).upper()
 
         if reponse == "P":
-            partie()
+            play()
         elif reponse == "KILL":
             quick_quit()
         elif reponse == "Q":
@@ -75,14 +77,14 @@ def main_menu():
         elif reponse == "C":
             credit()
 
-
 # partie de Mastermind
-def partie():
+def play():
     # Code a deviner
-    code_secret = []
-    NOMBRE_ESSAI = 0
-    for i in range(TAILLE_CODE):
-        code_secret.append(random.choice(list(Color.items())))
+    secret_code = []
+    try_meter = 0
+
+    for i in range(CODE_SIZE):
+        secret_code.append(random.choice(list(Colors.items())))
 
     # Entrée dans la partie
     print()
@@ -91,10 +93,11 @@ def partie():
     for whitespace in range((TERMINAL_WIDTH // 2) - 23):
         str_askcolors = str_askcolors + " "
 
-    str_askcolors = str_askcolors + (Style.RESET_ALL + "Try a " + str(TAILLE_CODE) + " char code [" +
-          Color["B"] + ", " + Color["G"] + ", " + Color["R"] + ", " +
-          Color["Y"] + ", " + Color["C"] + ", " + Color["P"]
-          + "] or \033[0;32;10mGIVE UP\033[0;38;10m\033[1m" + Fore.YELLOW + Style.BRIGHT)
+    str_askcolors = str_askcolors + (Style.RESET_ALL + "Try a " + str(CODE_SIZE) + " char code [" +
+                                     Colors["B"] + ", " + Colors["G"] + ", " + Colors["R"] + ", " +
+                                     Colors["Y"] + ", " + Colors["C"] +
+                                     ", " + Colors["P"]
+                                     + "] or \033[0;32;10mGIVE UP\033[0;38;10m\033[1m" + Fore.YELLOW + Style.BRIGHT)
 
     print(str_askcolors.center(TERMINAL_WIDTH))
 
@@ -122,102 +125,99 @@ def partie():
 
             str_cheat = str_cheat + "ans:"
 
-            for key, value in code_secret:
+            for key, value in secret_code:
                 str_cheat = str_cheat + value
-            
+
             print(Fore.RED + str_cheat + Fore.YELLOW)
             continue
 
-        elif query == '' :
+        elif query == '':
             continue
 
-           
-
-        submit = verifier_query(query)
+        submit = verify_query(query)
 
         if submit == "erreur":
-            print(Style.RESET_ALL + Fore.RED + "Wrong input ".center(TERMINAL_WIDTH) + Style.RESET_ALL + Fore.YELLOW + Style.BRIGHT)
+            print(Style.RESET_ALL + Fore.RED + "Wrong input ".center(TERMINAL_WIDTH) +
+                  Style.RESET_ALL + Fore.YELLOW + Style.BRIGHT)
             continue
 
-        NOMBRE_ESSAI += 1
+        try_meter += 1
 
         # Copie du code secret pour pouvoir le manipuler
-        copie_code = code_secret.copy()
-        copie_submit = submit.copy()
-        sortie = []
+        code_copy = secret_code.copy()
+        submit_copy = submit.copy()
+        output = []
 
-        for i,(k,v) in enumerate(copie_code):
-            if v == copie_submit[i]:
-                sortie.append('!')
-                copie_code[i] = (k, 'X')
-                copie_submit[i] = ''
-        
-        for i, digit in enumerate(copie_submit):
-            for j, (k,v) in enumerate(copie_code):
+        for i, (k, v) in enumerate(code_copy):
+            if v == submit_copy[i]:
+                output.append('!')
+                code_copy[i] = (k, 'X')
+                submit_copy[i] = ''
+
+        for i, digit in enumerate(submit_copy):
+            for j, (k, v) in enumerate(code_copy):
                 if digit == v:
-                    sortie.append('?')
-                    copie_code[j] = (k, 'X')
-                    copie_submit[i] = ''
+                    output.append('?')
+                    code_copy[j] = (k, 'X')
+                    submit_copy[i] = ''
                     break
 
+        victory = True
+        result_chain = ''
+        for i in range(CODE_SIZE):
+            if i < len(output):
+                result_chain += output[i]
 
-        victoire = True
-        chaine = ''
-        for i in range(TAILLE_CODE):
-            if i < len(sortie) :
-                chaine += sortie[i]
-
-                if sortie[i] != '!' :
-                    victoire = False
+                if output[i] != '!':
+                    victory = False
             else:
-                chaine += ' '
-                victoire = False
+                result_chain += ' '
+                victory = False
 
-        essai = ''
-        for couleur in submit:
-            essai += couleur
+        attempt = ''
+        for color in submit:
+            attempt += color
 
-        if (victoire):
+        if (victory):
             str_winpad = ""
             for whitespace in range((TERMINAL_WIDTH // 2) - 12):
                 str_winpad = str_winpad + " "
 
-            print(str_winpad + essai + " was the secret code.")
+            print(str_winpad + attempt + " was the secret code.")
 
             str_triespad = ""
             for whitespace in range((TERMINAL_WIDTH // 2) - 16):
                 str_triespad = str_triespad + " "
-            print(str_triespad + "Congrats!! It took you " + str(NOMBRE_ESSAI) + " step(s).")
+            print(str_triespad + "Congrats!! It took you " +
+                  str(try_meter) + " step(s).")
             print()
             main_menu()
         else:
-            str_essai = ""
+            str_attempt = ""
             for whitespace in range((TERMINAL_WIDTH // 2) - 19):
-                str_essai = str_essai + " "
-            print(str_essai + essai + " --> [" + chaine + "] (? = Color; ! = Color + Position)" + Style.RESET_ALL + Fore.YELLOW + Style.BRIGHT)
+                str_attempt = str_attempt + " "
+            print(str_attempt + attempt + " --> [" + result_chain + "] (? = Color; ! = Color + Position)" +
+                  Style.RESET_ALL + Fore.YELLOW + Style.BRIGHT)
             print()
+
 # Verification et traduction de l'entrée de l'utilisateur
+def verify_query(query):
 
+    attempt = list(query)
+    output = []
 
-def verifier_query(query):
-
-    essai = list(query)
-    sortie = []
-
-    if len(essai) != TAILLE_CODE:
+    if len(attempt) != CODE_SIZE:
         return "erreur"
 
-    for charactere in essai : 
-        try : 
-            sortie.append(Color[charactere])
-        except KeyError : 
+    for letter in attempt:
+        try:
+            output.append(Colors[letter])
+        except KeyError:
             return "erreur"
 
-    return sortie
+    return output
 
-# Fin du programme
-
-
+# Sorties du programme
 def slow_quit():
     print("Unplugging".center(TERMINAL_WIDTH))
     print("".center((TERMINAL_WIDTH // 2) - (5)), end="")
@@ -234,36 +234,40 @@ def slow_quit():
 
     quit()
 
+
 def quick_quit():
     print(Style.RESET_ALL + Fore.RED)
     print("Goodbye".center(TERMINAL_WIDTH))
     quit()
 
+
 def credit():
     print(Fore.BLUE)
-    print("PROJECT COORDINATOR".center(TERMINAL_WIDTH), end ="")
+    print("PROJECT COORDINATOR".center(TERMINAL_WIDTH), end="")
     print("Maryse Pilote".center(TERMINAL_WIDTH))
     time.sleep(0.5)
     print(Fore.GREEN)
-    print("QUALITY CONTROL".center(TERMINAL_WIDTH), end ="")
+    print("QUALITY CONTROL".center(TERMINAL_WIDTH), end="")
     cprint("Sam Sebille")
     time.sleep(0.5)
     print(Fore.YELLOW)
-    print("LEAD DESIGNER".center(TERMINAL_WIDTH), end ="")
+    print("LEAD DESIGNER".center(TERMINAL_WIDTH), end="")
     cprint("Yanni Haddar")
     time.sleep(0.5)
     print(Fore.RED)
-    print("LEAD PROGRAMMER".center(TERMINAL_WIDTH), end ="")
+    print("LEAD PROGRAMMER".center(TERMINAL_WIDTH), end="")
     cprint("Quentin Gastaldo")
     print(Style.RESET_ALL)
 
+
+# Demarrage du programme
 if __name__ == '__main__':
     try:
         game()
     except KeyboardInterrupt:
         quick_quit()
-    #except Exception as e:
+    # except Exception as e:
      #   print(Style.RESET_ALL + Fore.RED)
       #  print ("    > Fatal Error:")
        # print("    > " + str(e))
-        #quick_quit()
+        # quick_quit()
