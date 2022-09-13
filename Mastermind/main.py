@@ -253,21 +253,19 @@ def quick_quit():
 
 
 def credit():
-    print(Fore.BLUE)
-    print("PROJECT COORDINATOR".center(TERMINAL_WIDTH), end="")
-    print("Maryse Pilote".center(TERMINAL_WIDTH))
-    time.sleep(0.5)
-    print(Fore.GREEN)
-    print("QUALITY CONTROL".center(TERMINAL_WIDTH), end="")
-    cprint("Sam Sebille")
-    time.sleep(0.5)
-    print(Fore.YELLOW)
-    print("LEAD DESIGNER".center(TERMINAL_WIDTH), end="")
-    cprint("Yanni Haddar")
-    time.sleep(0.5)
-    print(Fore.RED)
-    print("LEAD PROGRAMMER".center(TERMINAL_WIDTH), end="")
-    cprint("Quentin Gastaldo")
+    credit_names = {
+        Fore.BLUE + "PROJECT COORDINATOR" + Fore.BLACK : Fore.BLUE + "Maryse Pilote" + Fore.BLACK,
+        Fore.GREEN + "QUALITY CONTROL" + Fore.BLACK : Fore.GREEN + "Sam Sebille" + Fore.BLACK,
+        Fore.YELLOW + "LEAD DESIGNER" + Fore.BLACK : Fore.YELLOW + "Yanni Haddar" + Fore.BLACK,
+        Fore.RED + "LEAD PROGRAMMER" + Fore.BLACK : Fore.RED + "Quentin Gastaldo" + Fore.BLACK
+    }
+
+    for title, name in credit_names.items() :
+        print(title.center(TERMINAL_WIDTH))
+        print(name.center(TERMINAL_WIDTH))
+        print()
+        time.sleep(0.5)
+
     print(Style.RESET_ALL)
 
 
