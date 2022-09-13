@@ -1,11 +1,7 @@
-from hashlib import new
-from itertools import count
 import random
-from re import sub
 import time
 import textwrap
 import shutil
-import string
 try :
     from colorama import init, Fore, Back, Style
     init()
