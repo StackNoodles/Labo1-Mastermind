@@ -211,8 +211,6 @@ def debut_partie(secret_code):
 
     print(str_askcolors.center(TERMINAL_WIDTH))
 
-def tour():
-
 # Verification et traduction de l'entrée de l'utilisateur
 def verify_query(query):
 
