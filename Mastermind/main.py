@@ -1,11 +1,9 @@
-from hashlib import new
-from itertools import count
 import random
-from re import sub
 import time
 import textwrap
 import shutil
-import string
+
+#Vérifie que le module Colorama est présent
 try :
     from colorama import init, Fore, Back, Style
     init()
@@ -31,11 +29,11 @@ Colors = {
 
 CODE_SIZE = 4
 
-
+#Centrage du texte pour l 'affichage
 def cprint(txt):
     print(txt.center(TERMINAL_WIDTH))
 
-
+#Affichage du Titre
 def start():
     print(Style.NORMAL)
     txt_logo = (Fore.BLUE+"    ██\      ██\  ██████\   ██████\  ████████\ ████████\ ███████\  ██\      ██\ ██████\ ██\   ██\ ███████\ \n" +
@@ -195,8 +193,9 @@ def play():
                   Style.RESET_ALL + Fore.YELLOW + Style.BRIGHT)
             print()
 
+# Entrée dans la partie
 def play_menu():
-    # Entrée dans la partie
+
     print()
     cprint("game started!")
     str_askcolors = ""
@@ -245,13 +244,13 @@ def slow_quit():
 
     quit()
 
-
+#Sortie du programme
 def quick_quit():
     print(Style.RESET_ALL + Fore.RED)
     print("Goodbye".center(TERMINAL_WIDTH))
     quit()
 
-
+#Affigage des crédit
 def credit():
     credit_names = {
         Fore.BLUE + "PROJECT COORDINATOR" + Fore.BLACK : Fore.BLUE + "Maryse Pilote" + Fore.BLACK,
