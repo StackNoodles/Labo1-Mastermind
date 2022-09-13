@@ -18,7 +18,7 @@ except Exception :
 SIZE = shutil.get_terminal_size()
 TERMINAL_WIDTH = SIZE.columns
 
-Colors = {
+COLORS = {
     "B": "\033[0;34;10mB\033[0;38;10m",  # BLUE
     "G": "\033[0;32;10mG\033[0;38;10m",  # GREEN
     "R": "\033[0;31;10mR\033[0;38;10m",  # RED
@@ -26,6 +26,13 @@ Colors = {
     "C": "\033[0;36;10mC\033[0;38;10m",  # CYAN
     "P": "\033[0;35;10mP\033[0;38;10m"  # PURPLE
 }
+
+TEAM_NAMES = {
+        Fore.BLUE + "PROJECT COORDINATOR" + Fore.BLACK : Fore.BLUE + "Maryse Pilote" + Fore.BLACK,
+        Fore.GREEN + "QUALITY CONTROL" + Fore.BLACK : Fore.GREEN + "Sam Sebille" + Fore.BLACK,
+        Fore.YELLOW + "LEAD DESIGNER" + Fore.BLACK : Fore.YELLOW + "Yanni Haddar" + Fore.BLACK,
+        Fore.RED + "LEAD PROGRAMMER" + Fore.BLACK : Fore.RED + "Quentin Gastaldo" + Fore.BLACK
+    }
 
 CODE_SIZE = 4
 
@@ -90,7 +97,7 @@ def play():
     try_meter = 0
 
     for i in range(CODE_SIZE):
-        secret_code.append(random.choice(list(Colors.items())))
+        secret_code.append(random.choice(list(COLORS.items())))
 
     play_menu()
 
@@ -141,16 +148,20 @@ def play():
         submit_copy = submit.copy()
         output = []
 
+        # On verifie d'abord les bonnes couleurs au bon endroit
         for i, (k, v) in enumerate(code_copy):
             if v == submit_copy[i]:
                 output.append('!')
-                code_copy[i] = (k, 'X')
+                # Valeurs tempon pour ne pas interferer avec d'autre comparaisons
+                code_copy[i] = (k, 'X') 
                 submit_copy[i] = ''
 
+        # On verifie ensuite les bonnes couleurs au mauvais endroit
         for i, digit in enumerate(submit_copy):
             for j, (k, v) in enumerate(code_copy):
                 if digit == v:
                     output.append('?')
+                    # Valeurs tempon pour ne pas interferer avec d'autre comparaisons
                     code_copy[j] = (k, 'X')
                     submit_copy[i] = ''
                     break
@@ -164,6 +175,7 @@ def play():
                 if output[i] != '!':
                     victory = False
             else:
+                # On complete la chaine de resultat avec des espaces pour les mauvaises couleurs
                 result_chain += ' '
                 victory = False
 
@@ -198,17 +210,17 @@ def play_menu():
 
     print()
     cprint("game started!")
-    str_askcolors = ""
+    str_askCOLORS = ""
     for whitespace in range((TERMINAL_WIDTH // 2) - 23):
-        str_askcolors = str_askcolors + " "
+        str_askCOLORS = str_askCOLORS + " "
 
-    str_askcolors = str_askcolors + (Style.RESET_ALL + "Try a " + str(CODE_SIZE) + " char code [" +
-                                     Colors["B"] + ", " + Colors["G"] + ", " + Colors["R"] + ", " +
-                                     Colors["Y"] + ", " + Colors["C"] +
-                                     ", " + Colors["P"]
+    str_askCOLORS = str_askCOLORS + (Style.RESET_ALL + "Try a " + str(CODE_SIZE) + " char code [" +
+                                     COLORS["B"] + ", " + COLORS["G"] + ", " + COLORS["R"] + ", " +
+                                     COLORS["Y"] + ", " + COLORS["C"] +
+                                     ", " + COLORS["P"]
                                      + "] or \033[0;32;10mGIVE UP\033[0;38;10m\033[1m" + Fore.YELLOW + Style.BRIGHT)
 
-    print(str_askcolors.center(TERMINAL_WIDTH))
+    print(str_askCOLORS.center(TERMINAL_WIDTH))
 
 # Verification et traduction de l'entrée de l'utilisateur
 def verify_query(query):
@@ -221,13 +233,13 @@ def verify_query(query):
 
     for letter in attempt:
         try:
-            output.append(Colors[letter])
+            output.append(COLORS[letter])
         except KeyError:
             return "erreur"
 
     return output
 
-# Sorties du programme
+# Sortie lente du programme
 def slow_quit():
     print("Unplugging".center(TERMINAL_WIDTH))
     print("".center((TERMINAL_WIDTH // 2) - (5)), end="")
@@ -244,7 +256,7 @@ def slow_quit():
 
     quit()
 
-#Sortie du programme
+# Sortie rapide du programme
 def quick_quit():
     print(Style.RESET_ALL + Fore.RED)
     print("Goodbye".center(TERMINAL_WIDTH))
@@ -252,14 +264,7 @@ def quick_quit():
 
 #Affigage des crédit
 def credit():
-    credit_names = {
-        Fore.BLUE + "PROJECT COORDINATOR" + Fore.BLACK : Fore.BLUE + "Maryse Pilote" + Fore.BLACK,
-        Fore.GREEN + "QUALITY CONTROL" + Fore.BLACK : Fore.GREEN + "Sam Sebille" + Fore.BLACK,
-        Fore.YELLOW + "LEAD DESIGNER" + Fore.BLACK : Fore.YELLOW + "Yanni Haddar" + Fore.BLACK,
-        Fore.RED + "LEAD PROGRAMMER" + Fore.BLACK : Fore.RED + "Quentin Gastaldo" + Fore.BLACK
-    }
-
-    for title, name in credit_names.items() :
+    for title, name in TEAM_NAMES.items() :
         print(title.center(TERMINAL_WIDTH))
         print(name.center(TERMINAL_WIDTH))
         print()
