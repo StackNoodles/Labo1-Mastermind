@@ -6,8 +6,16 @@ import time
 import textwrap
 import shutil
 import string
-from colorama import init, Fore, Back, Style
-init()
+try :
+    from colorama import init, Fore, Back, Style
+    init()
+except Exception :
+    print("""
+    ////////////////////////////////////////////////////////////////////////////////
+    Il vous faut le module Colorama pour lancer ce programme. (pip install colorama)
+    ////////////////////////////////////////////////////////////////////////////////
+    """)
+    quit()
 
 SIZE = shutil.get_terminal_size()
 TERMINAL_WIDTH = SIZE.columns
