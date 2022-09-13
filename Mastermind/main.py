@@ -195,7 +195,7 @@ def play():
                   Style.RESET_ALL + Fore.YELLOW + Style.BRIGHT)
             print()
 
-def debut_partie(secret_code):
+def debut_partie():
     # Entrée dans la partie
     print()
     cprint("game started!")
