@@ -94,7 +94,7 @@ def play():
     for i in range(CODE_SIZE):
         secret_code.append(random.choice(list(Colors.items())))
 
-    debut_partie()
+    play_menu()
 
     # Boucle des tours
     while True:
