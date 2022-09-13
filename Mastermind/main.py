@@ -94,20 +94,7 @@ def play():
     for i in range(CODE_SIZE):
         secret_code.append(random.choice(list(Colors.items())))
 
-    # Entrée dans la partie
-    print()
-    cprint("game started!")
-    str_askcolors = ""
-    for whitespace in range((TERMINAL_WIDTH // 2) - 23):
-        str_askcolors = str_askcolors + " "
-
-    str_askcolors = str_askcolors + (Style.RESET_ALL + "Try a " + str(CODE_SIZE) + " char code [" +
-                                     Colors["B"] + ", " + Colors["G"] + ", " + Colors["R"] + ", " +
-                                     Colors["Y"] + ", " + Colors["C"] +
-                                     ", " + Colors["P"]
-                                     + "] or \033[0;32;10mGIVE UP\033[0;38;10m\033[1m" + Fore.YELLOW + Style.BRIGHT)
-
-    print(str_askcolors.center(TERMINAL_WIDTH))
+    debut_partie()
 
     # Boucle des tours
     while True:
@@ -207,6 +194,24 @@ def play():
             print(str_attempt + attempt + " --> [" + result_chain + "] (? = Color; ! = Color + Position)" +
                   Style.RESET_ALL + Fore.YELLOW + Style.BRIGHT)
             print()
+
+def debut_partie(secret_code):
+    # Entrée dans la partie
+    print()
+    cprint("game started!")
+    str_askcolors = ""
+    for whitespace in range((TERMINAL_WIDTH // 2) - 23):
+        str_askcolors = str_askcolors + " "
+
+    str_askcolors = str_askcolors + (Style.RESET_ALL + "Try a " + str(CODE_SIZE) + " char code [" +
+                                     Colors["B"] + ", " + Colors["G"] + ", " + Colors["R"] + ", " +
+                                     Colors["Y"] + ", " + Colors["C"] +
+                                     ", " + Colors["P"]
+                                     + "] or \033[0;32;10mGIVE UP\033[0;38;10m\033[1m" + Fore.YELLOW + Style.BRIGHT)
+
+    print(str_askcolors.center(TERMINAL_WIDTH))
+
+def tour():
 
 # Verification et traduction de l'entrée de l'utilisateur
 def verify_query(query):
