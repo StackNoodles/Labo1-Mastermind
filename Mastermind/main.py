@@ -7,13 +7,13 @@ import shutil
 try:
     from colorama import init, Fore, Back, Style
     init()
-except Exception:
-    print("""
+except ModuleNotFoundError:
+    raise ModuleNotFoundError("""
     ////////////////////////////////////////////////////////////////////////////////
     Il vous faut le module Colorama pour lancer ce programme. (pip install colorama)
     ////////////////////////////////////////////////////////////////////////////////
     """)
-    quit()
+    
 
 SIZE = shutil.get_terminal_size()
 TERMINAL_WIDTH = SIZE.columns
