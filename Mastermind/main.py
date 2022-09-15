@@ -3,11 +3,11 @@ import time
 import textwrap
 import shutil
 
-#Vérifie que le module Colorama est présent
-try :
+# Vérifie que le module Colorama est présent
+try:
     from colorama import init, Fore, Back, Style
     init()
-except Exception :
+except Exception:
     print("""
     ////////////////////////////////////////////////////////////////////////////////
     Il vous faut le module Colorama pour lancer ce programme. (pip install colorama)
@@ -19,28 +19,28 @@ SIZE = shutil.get_terminal_size()
 TERMINAL_WIDTH = SIZE.columns
 
 COLORS = {
-    "B": "\033[0;34;10mB\033[0;38;10m",  # BLUE
-    "G": "\033[0;32;10mG\033[0;38;10m",  # GREEN
-    "R": "\033[0;31;10mR\033[0;38;10m",  # RED
-    "Y": "\033[0;33;10mY\033[0;38;10m",  # YELLOW
-    "C": "\033[0;36;10mC\033[0;38;10m",  # CYAN
-    "P": "\033[0;35;10mP\033[0;38;10m"  # PURPLE
+    "B": Fore.BLUE + "B" + Fore.BLACK,  # BLUE
+    "G": Fore.GREEN + "G" + Fore.BLACK,  # GREEN
+    "R": Fore.RED + "R" + Fore.BLACK,  # RED
+    "Y": Fore.YELLOW + "Y" + Fore.BLACK,  # YELLOW
+    "C": Fore.CYAN + "C" + Fore.BLACK,  # CYAN
+    "P": Fore.MAGENTA + "P" + Fore.BLACK  # PURPLE
 }
 
 TEAM_NAMES = {
-        Fore.BLUE + "PROJECT COORDINATOR" + Fore.BLACK : Fore.BLUE + "Maryse Pilote" + Fore.BLACK,
-        Fore.GREEN + "QUALITY CONTROL" + Fore.BLACK : Fore.GREEN + "Sam Sebille" + Fore.BLACK,
-        Fore.YELLOW + "LEAD DESIGNER" + Fore.BLACK : Fore.YELLOW + "Yanni Haddar" + Fore.BLACK,
-        Fore.RED + "LEAD PROGRAMMER" + Fore.BLACK : Fore.RED + "Quentin Gastaldo" + Fore.BLACK
-    }
+    Fore.BLUE + "PROJECT COORDINATOR" + Fore.BLACK: Fore.BLUE + "Maryse Pilote" + Fore.BLACK,
+    Fore.GREEN + "QUALITY CONTROL" + Fore.BLACK: Fore.GREEN + "Sam Sebille" + Fore.BLACK,
+    Fore.YELLOW + "LEAD DESIGNER" + Fore.BLACK: Fore.YELLOW + "Yanni Haddar" + Fore.BLACK,
+    Fore.RED + "LEAD PROGRAMMER" + Fore.BLACK: Fore.RED + "Quentin Gastaldo" + Fore.BLACK
+}
 
 CODE_SIZE = 4
 
-#Centrage du texte pour l 'affichage
+# Centrage du texte pour l 'affichage
 def cprint(txt):
     print(txt.center(TERMINAL_WIDTH))
 
-#Affichage du Titre
+# Affichage du Titre
 def start():
     print(Style.NORMAL)
     txt_logo = (Fore.BLUE+"    ██\      ██\  ██████\   ██████\  ████████\ ████████\ ███████\  ██\      ██\ ██████\ ██\   ██\ ███████\ \n" +
@@ -153,7 +153,7 @@ def play():
             if v == submit_copy[i]:
                 output.append('!')
                 # Valeurs tempon pour ne pas interferer avec d'autre comparaisons
-                code_copy[i] = (k, 'X') 
+                code_copy[i] = (k, 'X')
                 submit_copy[i] = ''
 
         # On verifie ensuite les bonnes couleurs au mauvais endroit
@@ -218,7 +218,7 @@ def play_menu():
                                      COLORS["B"] + ", " + COLORS["G"] + ", " + COLORS["R"] + ", " +
                                      COLORS["Y"] + ", " + COLORS["C"] +
                                      ", " + COLORS["P"]
-                                     + "] or \033[0;32;10mGIVE UP\033[0;38;10m\033[1m" + Fore.YELLOW + Style.BRIGHT)
+                                     + "] or " + Fore.GREEN + "GIVE UP" + Fore.YELLOW + Style.BRIGHT)
 
     print(str_askCOLORS.center(TERMINAL_WIDTH))
 
@@ -262,9 +262,9 @@ def quick_quit():
     print("Goodbye".center(TERMINAL_WIDTH))
     quit()
 
-#Affigage des crédit
+# Affigage des crédit
 def credit():
-    for title, name in TEAM_NAMES.items() :
+    for title, name in TEAM_NAMES.items():
         print(title.center(TERMINAL_WIDTH))
         print(name.center(TERMINAL_WIDTH))
         print()
