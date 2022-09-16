@@ -73,7 +73,7 @@ def game():
 def main_menu():
 
     while True:
-        cprint("Press P to PLAY, Q to QUIT, C for the creditS")
+        cprint("Press P to PLAY, Q to QUIT, C for the credits")
         str_buffer = ""
         for whitespace in range((TERMINAL_WIDTH // 2 - (23))):
             str_buffer = str_buffer + " "
