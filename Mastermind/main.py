@@ -194,7 +194,7 @@ def play():
             for whitespace in range((TERMINAL_WIDTH // 2) - 16):
                 str_triespad = str_triespad + " "
             print(str_triespad + "Congrats!! It took you " +
-                  str(try_meter) + " step(s).")
+                  str(try_meter) + " step(s)." + Fore.WHITE)
             print()
             main_menu()
         else:
