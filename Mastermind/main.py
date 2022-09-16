@@ -19,19 +19,19 @@ SIZE = shutil.get_terminal_size()
 TERMINAL_WIDTH = SIZE.columns
 
 COLORS = {
-    "B": Fore.BLUE + "B" + Fore.WHITE,  # BLUE
-    "G": Fore.GREEN + "G" + Fore.WHITE,  # GREEN
-    "R": Fore.RED + "R" + Fore.WHITE,  # RED
-    "Y": Fore.YELLOW + "Y" + Fore.WHITE,  # YELLOW
-    "C": Fore.CYAN + "C" + Fore.WHITE,  # CYAN
-    "P": Fore.MAGENTA + "P" + Fore.WHITE  # PURPLE
+    "B": Fore.BLUE + "B" + Style.RESET_ALL,  # BLUE
+    "G": Fore.GREEN + "G" + Style.RESET_ALL,  # GREEN
+    "R": Fore.RED + "R" + Style.RESET_ALL,  # RED
+    "Y": Fore.YELLOW + "Y" + Style.RESET_ALL,  # YELLOW
+    "C": Fore.CYAN + "C" + Style.RESET_ALL,  # CYAN
+    "P": Fore.MAGENTA + "P" + Style.RESET_ALL  # PURPLE
 }
 
 TEAM_NAMES = {
-    Fore.BLUE + "PROJECT COORDINATOR" + Fore.WHITE: Fore.BLUE + "Maryse Pilote" + Fore.WHITE,
-    Fore.GREEN + "QUALITY CONTROL" + Fore.WHITE: Fore.GREEN + "Sam Sebille" + Fore.WHITE,
-    Fore.YELLOW + "LEAD DESIGNER" + Fore.WHITE: Fore.YELLOW + "Yanni Haddar" + Fore.WHITE,
-    Fore.RED + "LEAD PROGRAMMER" + Fore.WHITE: Fore.RED + "Quentin Gastaldo" + Fore.WHITE
+    Fore.BLUE + "PROJECT COORDINATOR" + Style.RESET_ALL: Fore.BLUE + "Maryse Pilote" + Style.RESET_ALL,
+    Fore.GREEN + "QUALITY CONTROL" + Style.RESET_ALL: Fore.GREEN + "Sam Sebille" + Style.RESET_ALL,
+    Fore.YELLOW + "LEAD DESIGNER" + Style.RESET_ALL: Fore.YELLOW + "Yanni Haddar" + Style.RESET_ALL,
+    Fore.RED + "LEAD PROGRAMMER" + Style.RESET_ALL: Fore.RED + "Quentin Gastaldo" + Style.RESET_ALL
 }
 
 CODE_SIZE = 4
@@ -190,7 +190,7 @@ def play():
             for whitespace in range((TERMINAL_WIDTH // 2) - 16):
                 str_triespad = str_triespad + " "
             print(str_triespad + "Congrats!! It took you " +
-                  str(try_meter) + " step(s)." + Fore.WHITE)
+                  str(try_meter) + " step(s)." + Style.RESET_ALL)
             print()
             main_menu()
         else:
