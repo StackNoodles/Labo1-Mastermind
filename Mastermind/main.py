@@ -255,7 +255,7 @@ def quick_quit():
     print("Goodbye".center(TERMINAL_WIDTH))
     quit()
 
-# Affigage des crédit
+# Affichage des crédit
 def credit():
     for title, name in TEAM_NAMES.items():
         print(title.center(TERMINAL_WIDTH))
