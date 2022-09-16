@@ -19,19 +19,19 @@ SIZE = shutil.get_terminal_size()
 TERMINAL_WIDTH = SIZE.columns
 
 COLORS = {
-    "B": Fore.BLUE + "B" + Fore.BLACK,  # BLUE
-    "G": Fore.GREEN + "G" + Fore.BLACK,  # GREEN
-    "R": Fore.RED + "R" + Fore.BLACK,  # RED
-    "Y": Fore.YELLOW + "Y" + Fore.BLACK,  # YELLOW
-    "C": Fore.CYAN + "C" + Fore.BLACK,  # CYAN
-    "P": Fore.MAGENTA + "P" + Fore.BLACK  # PURPLE
+    "B": Fore.BLUE + "B" + Fore.WHITE,  # BLUE
+    "G": Fore.GREEN + "G" + Fore.WHITE,  # GREEN
+    "R": Fore.RED + "R" + Fore.WHITE,  # RED
+    "Y": Fore.YELLOW + "Y" + Fore.WHITE,  # YELLOW
+    "C": Fore.CYAN + "C" + Fore.WHITE,  # CYAN
+    "P": Fore.MAGENTA + "P" + Fore.WHITE  # PURPLE
 }
 
 TEAM_NAMES = {
-    Fore.BLUE + "PROJECT COORDINATOR" + Fore.BLACK: Fore.BLUE + "Maryse Pilote" + Fore.BLACK,
-    Fore.GREEN + "QUALITY CONTROL" + Fore.BLACK: Fore.GREEN + "Sam Sebille" + Fore.BLACK,
-    Fore.YELLOW + "LEAD DESIGNER" + Fore.BLACK: Fore.YELLOW + "Yanni Haddar" + Fore.BLACK,
-    Fore.RED + "LEAD PROGRAMMER" + Fore.BLACK: Fore.RED + "Quentin Gastaldo" + Fore.BLACK
+    Fore.BLUE + "PROJECT COORDINATOR" + Fore.WHITE: Fore.BLUE + "Maryse Pilote" + Fore.WHITE,
+    Fore.GREEN + "QUALITY CONTROL" + Fore.WHITE: Fore.GREEN + "Sam Sebille" + Fore.WHITE,
+    Fore.YELLOW + "LEAD DESIGNER" + Fore.WHITE: Fore.YELLOW + "Yanni Haddar" + Fore.WHITE,
+    Fore.RED + "LEAD PROGRAMMER" + Fore.WHITE: Fore.RED + "Quentin Gastaldo" + Fore.WHITE
 }
 
 CODE_SIZE = 4
@@ -73,17 +73,16 @@ def game():
 # Menu principal + choix
 def main_menu():
 
-    # String contenant les fleches d'entrée
+    # String contenant l'espace pour centrer'
     global str_buffer
     str_buffer = ""
     for whitespace in range((TERMINAL_WIDTH // 2 - (23))):
         str_buffer = str_buffer + " "
-    str_buffer = str_buffer + ">>> "
 
     while True:
         cprint("Press P to PLAY, Q to QUIT, C for the credits")
 
-        reponse = input(str_buffer).upper()
+        reponse = input(str_buffer + ">>> ").upper()
 
         if reponse == "P":
             play()
@@ -108,7 +107,7 @@ def play():
     # Boucle des tours
     while True:
 
-        query = input(str_buffer).upper()
+        query = input(str_buffer + ">>> ").upper()
 
         if query == "KILL":
             quick_quit()
@@ -119,16 +118,12 @@ def play():
             main_menu()
 
         elif query == "HACK":
+
             str_cheat = ""
-            for whitespace in range((TERMINAL_WIDTH // 2) - 23):
-                str_cheat = str_cheat + " "
-
-            str_cheat = str_cheat + "ans:"
-
             for key, value in secret_code:
                 str_cheat = str_cheat + value
 
-            print(Fore.RED + str_cheat + Fore.YELLOW)
+            print(Fore.RED + str_buffer + "ans:" + str_cheat + Fore.YELLOW)
             continue
 
         elif query == '':
@@ -184,6 +179,7 @@ def play():
             attempt += color
 
         if (victory):
+
             str_winpad = ""
             for whitespace in range((TERMINAL_WIDTH // 2) - 12):
                 str_winpad = str_winpad + " "
@@ -210,11 +206,8 @@ def play_menu():
 
     print()
     cprint("game started!")
-    str_askCOLORS = ""
-    for whitespace in range((TERMINAL_WIDTH // 2) - 23):
-        str_askCOLORS = str_askCOLORS + " "
 
-    str_askCOLORS = str_askCOLORS + (Style.RESET_ALL + "Try a " + str(CODE_SIZE) + " char code [" +
+    str_askCOLORS = str_buffer + (Style.RESET_ALL + "Try a " + str(CODE_SIZE) + " char code [" +
                                      COLORS["B"] + ", " + COLORS["G"] + ", " + COLORS["R"] + ", " +
                                      COLORS["Y"] + ", " + COLORS["C"] +
                                      ", " + COLORS["P"]
