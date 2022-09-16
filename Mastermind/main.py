@@ -36,6 +36,7 @@ TEAM_NAMES = {
 
 CODE_SIZE = 4
 
+
 # Centrage du texte pour l 'affichage
 def cprint(txt):
     print(txt.center(TERMINAL_WIDTH))
@@ -72,13 +73,16 @@ def game():
 # Menu principal + choix
 def main_menu():
 
+    # String contenant les fleches d'entrée
+    global str_buffer
+    str_buffer = ""
+    for whitespace in range((TERMINAL_WIDTH // 2 - (23))):
+        str_buffer = str_buffer + " "
+    str_buffer = str_buffer + ">>> "
+
     while True:
         cprint("Press P to PLAY, Q to QUIT, C for the credits")
-        str_buffer = ""
-        for whitespace in range((TERMINAL_WIDTH // 2 - (23))):
-            str_buffer = str_buffer + " "
 
-        str_buffer = str_buffer + ">>> "
         reponse = input(str_buffer).upper()
 
         if reponse == "P":
@@ -104,10 +108,6 @@ def play():
     # Boucle des tours
     while True:
 
-        str_buffer = ""
-        for whitespace in range((TERMINAL_WIDTH // 2) - 23):
-            str_buffer = str_buffer + " "
-        str_buffer = str_buffer + ">>> "
         query = input(str_buffer).upper()
 
         if query == "KILL":
