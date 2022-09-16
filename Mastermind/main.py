@@ -272,8 +272,8 @@ if __name__ == '__main__':
         game()
     except KeyboardInterrupt:
         quick_quit()
-    # except Exception as e:
-     #   print(Style.RESET_ALL + Fore.RED)
-      #  print ("    > Fatal Error:")
-       # print("    > " + str(e))
-        # quick_quit()
+    except Exception as e:
+        print(Style.RESET_ALL + Fore.RED)
+        print ("    > Fatal Error:")
+        print("    > " + str(e))
+        quick_quit()
