@@ -2,6 +2,8 @@ import random
 import time
 import textwrap
 import shutil
+import string
+import re
 
 # Vérifie que le module Colorama est présent
 try:
@@ -35,11 +37,25 @@ TEAM_NAMES = {
 }
 
 CODE_SIZE = 4
+allowed_chars = string.printable + " "
+
+def cprint(txt):
+    print(txt.center(TERMINAL_WIDTH))
 
 
 # Centrage du texte pour l 'affichage
-def cprint(txt):
-    print(txt.center(TERMINAL_WIDTH))
+def center_print(txt, offset, jumpline):
+    regex = re.compile("\x1b\[([0-9,A-Z]{1,2}(;[0-9]{1,2})?(;[0-9]{3})?)?[m|K]?", re.UNICODE)
+    cleaned_string = re.sub(regex, '', txt)
+
+    length = len(cleaned_string)
+    whitespace = ""
+    for space in range((TERMINAL_WIDTH // 2) - (length//2) + offset):
+        whitespace = whitespace + " "
+    print(whitespace + txt + Style.RESET_ALL, end = "")
+
+    if jumpline:
+        print()
 
 # Affichage du Titre
 def start():
@@ -54,14 +70,12 @@ def start():
                 Fore.RED+"    \__|     \__|\__|  \__| \______/    \__|   \________|\__|  \__|\__|     \__|\______|\__|  \__|\_______/\n")
 
     for line in textwrap.wrap(txt_logo, width=116, drop_whitespace=False):
-        print(line.center(TERMINAL_WIDTH))
-
-    print(Fore.BLACK + Style.BRIGHT)
-    dev_str = "    Developed by" + Fore.YELLOW + " StackNoodles™"
-    print(dev_str.center(TERMINAL_WIDTH), end="")
-    print(Fore.BLACK)
-    print("This work is licensed under a GNU General Public License version 3 (or later version)".center(
-        TERMINAL_WIDTH))
+        center_print(line, 0, False)
+    
+    print()
+    center_print(Fore.BLACK + Style.BRIGHT + "Developed by" + Fore.YELLOW + " StackNoodles™", 0, False)
+    print()
+    center_print(Fore.BLACK + "This work is licensed under a GNU General Public License version 3 (or later version)", 0, True)
     print(Style.RESET_ALL)
 
 # Lancement du programme
