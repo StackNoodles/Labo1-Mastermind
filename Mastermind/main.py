@@ -21,19 +21,19 @@ SIZE = shutil.get_terminal_size()
 TERMINAL_WIDTH = SIZE.columns
 
 COLORS = {
-    "B": Fore.BLUE + "B" + Fore.BLACK,  # BLUE
-    "G": Fore.GREEN + "G" + Fore.BLACK,  # GREEN
-    "R": Fore.RED + "R" + Fore.BLACK,  # RED
-    "Y": Fore.YELLOW + "Y" + Fore.BLACK,  # YELLOW
-    "C": Fore.CYAN + "C" + Fore.BLACK,  # CYAN
-    "P": Fore.MAGENTA + "P" + Fore.BLACK  # PURPLE
+    "B": Fore.BLUE + "B" + Style.RESET_ALL,  # BLUE
+    "G": Fore.GREEN + "G" + Style.RESET_ALL,  # GREEN
+    "R": Fore.RED + "R" + Style.RESET_ALL,  # RED
+    "Y": Fore.YELLOW + "Y" + Style.RESET_ALL,  # YELLOW
+    "C": Fore.CYAN + "C" + Style.RESET_ALL,  # CYAN
+    "P": Fore.MAGENTA + "P" + Style.RESET_ALL  # PURPLE
 }
 
 TEAM_NAMES = {
-    Fore.BLUE + "PROJECT COORDINATOR" + Fore.BLACK: Fore.BLUE + "Maryse Pilote" + Fore.BLACK,
-    Fore.GREEN + "QUALITY CONTROL" + Fore.BLACK: Fore.GREEN + "Sam Sebille" + Fore.BLACK,
-    Fore.YELLOW + "LEAD DESIGNER" + Fore.BLACK: Fore.YELLOW + "Yanni Haddar" + Fore.BLACK,
-    Fore.RED + "LEAD PROGRAMMER" + Fore.BLACK: Fore.RED + "Quentin Gastaldo" + Fore.BLACK
+    Fore.BLUE + "PROJECT COORDINATOR" + Style.RESET_ALL: Fore.BLUE + "Maryse Pilote" + Style.RESET_ALL,
+    Fore.GREEN + "QUALITY CONTROL" + Style.RESET_ALL: Fore.GREEN + "Sam Sebille" + Style.RESET_ALL,
+    Fore.YELLOW + "LEAD DESIGNER" + Style.RESET_ALL: Fore.YELLOW + "Yanni Haddar" + Style.RESET_ALL,
+    Fore.RED + "LEAD PROGRAMMER" + Style.RESET_ALL: Fore.RED + "Quentin Gastaldo" + Style.RESET_ALL
 }
 
 CODE_SIZE = 4
@@ -60,14 +60,14 @@ def center_print(txt, offset, jumpline):
 # Affichage du Titre
 def start():
     print(Style.NORMAL)
-    txt_logo = (Fore.BLUE+"    ██\      ██\  ██████\   ██████\  ████████\ ████████\ ███████\  ██\      ██\ ██████\ ██\   ██\ ███████\ \n" +
-                Fore.BLUE+"    ███\    ███ |██  __██\ ██  __██\ \__██  __|██  _____|██  __██\ ███\    ███ |\_██  _|███\  ██ |██  __██\\\n" +
-                Fore.GREEN+"    ████\  ████ |██ /  ██ |██ /  \__|   ██ |   ██ |      ██ |  ██ |████\  ████ |  ██ |  ████\ ██ |██ |  ██ |\n" +
-                Fore.GREEN+"    ██\██\██ ██ |████████ |\██████\     ██ |   █████\    ███████  |██\██\██ ██ |  ██ |  ██ ██\██ |██ |  ██ |\n" +
-                Fore.YELLOW+"    ██ \███  ██ |██  __██ | \____██\    ██ |   ██  __|   ██  __██< ██ \███  ██ |  ██ |  ██ \████ |██ |  ██ |\n" +
-                Fore.YELLOW+"    ██ |\█  /██ |██ |  ██ |██\   ██ |   ██ |   ██ |      ██ |  ██ |██ |\█  /██ |  ██ |  ██ |\███ |██ |  ██ |\n" +
-                Fore.RED+"    ██ | \_/ ██ |██ |  ██ |\██████  |   ██ |   ████████\ ██ |  ██ |██ | \_/ ██ |██████\ ██ | \██ |███████  |\n" +
-                Fore.RED+"    \__|     \__|\__|  \__| \______/    \__|   \________|\__|  \__|\__|     \__|\______|\__|  \__|\_______/\n")
+    txt_logo = (Fore.BLUE   + "    ██\      ██\  ██████\   ██████\  ████████\ ████████\ ███████\  ██\      ██\ ██████\ ██\   ██\ ███████\ \n" +
+                Fore.BLUE   + "    ███\    ███ |██  __██\ ██  __██\ \__██  __|██  _____|██  __██\ ███\    ███ |\_██  _|███\  ██ |██  __██\ \n" +
+                Fore.GREEN  + "    ████\  ████ |██ /  ██ |██ /  \__|   ██ |   ██ |      ██ |  ██ |████\  ████ |  ██ |  ████\ ██ |██ |  ██ |\n" +
+                Fore.GREEN  + "    ██\██\██ ██ |████████ |\██████\     ██ |   █████\    ███████  |██\██\██ ██ |  ██ |  ██ ██\██ |██ |  ██ |\n" +
+                Fore.YELLOW + "    ██ \███  ██ |██  __██ | \____██\    ██ |   ██  __|   ██  __██< ██ \███  ██ |  ██ |  ██ \████ |██ |  ██ |\n" +
+                Fore.YELLOW + "    ██ |\█  /██ |██ |  ██ |██\   ██ |   ██ |   ██ |      ██ |  ██ |██ |\█  /██ |  ██ |  ██ |\███ |██ |  ██ |\n" +
+                Fore.RED    + "    ██ | \_/ ██ |██ |  ██ |\██████  |   ██ |   ████████\ ██ |  ██ |██ | \_/ ██ |██████\ ██ | \██ |███████  |\n" +
+                Fore.RED    + "    \__|     \__|\__|  \__| \______/    \__|   \________|\__|  \__|\__|     \__|\______|\__|  \__|\_______/\n")
 
     for line in textwrap.wrap(txt_logo, width=116, drop_whitespace=False):
         center_print(line, 0, False)
@@ -87,17 +87,16 @@ def game():
 # Menu principal + choix
 def main_menu():
 
-    # String contenant les fleches d'entrée
+    # String contenant l'espace pour centrer'
     global str_buffer
     str_buffer = ""
     for whitespace in range((TERMINAL_WIDTH // 2 - (23))):
         str_buffer = str_buffer + " "
-    str_buffer = str_buffer + ">>> "
 
     while True:
         cprint("Press P to PLAY, Q to QUIT, C for the credits")
 
-        reponse = input(str_buffer).upper()
+        reponse = input(str_buffer + ">>> ").upper()
 
         if reponse == "P":
             play()
@@ -122,7 +121,7 @@ def play():
     # Boucle des tours
     while True:
 
-        query = input(str_buffer).upper()
+        query = input(str_buffer + ">>> ").upper()
 
         if query == "KILL":
             quick_quit()
@@ -133,16 +132,12 @@ def play():
             main_menu()
 
         elif query == "HACK":
+
             str_cheat = ""
-            for whitespace in range((TERMINAL_WIDTH // 2) - 23):
-                str_cheat = str_cheat + " "
-
-            str_cheat = str_cheat + "ans:"
-
             for key, value in secret_code:
                 str_cheat = str_cheat + value
 
-            print(Fore.RED + str_cheat + Fore.YELLOW)
+            print(Fore.RED + str_buffer + "ans:" + str_cheat + Fore.YELLOW)
             continue
 
         elif query == '':
@@ -198,6 +193,7 @@ def play():
             attempt += color
 
         if (victory):
+
             str_winpad = ""
             for whitespace in range((TERMINAL_WIDTH // 2) - 12):
                 str_winpad = str_winpad + " "
@@ -208,7 +204,7 @@ def play():
             for whitespace in range((TERMINAL_WIDTH // 2) - 16):
                 str_triespad = str_triespad + " "
             print(str_triespad + "Congrats!! It took you " +
-                  str(try_meter) + " step(s)." + Fore.WHITE)
+                  str(try_meter) + " step(s)." + Style.RESET_ALL)
             print()
             main_menu()
         else:
@@ -224,11 +220,8 @@ def play_menu():
 
     print()
     cprint("game started!")
-    str_askCOLORS = ""
-    for whitespace in range((TERMINAL_WIDTH // 2) - 23):
-        str_askCOLORS = str_askCOLORS + " "
 
-    str_askCOLORS = str_askCOLORS + (Style.RESET_ALL + "Try a " + str(CODE_SIZE) + " char code [" +
+    str_askCOLORS = str_buffer + (Style.RESET_ALL + "Try a " + str(CODE_SIZE) + " char code [" +
                                      COLORS["B"] + ", " + COLORS["G"] + ", " + COLORS["R"] + ", " +
                                      COLORS["Y"] + ", " + COLORS["C"] +
                                      ", " + COLORS["P"]
@@ -276,7 +269,7 @@ def quick_quit():
     print("Goodbye".center(TERMINAL_WIDTH))
     quit()
 
-# Affigage des crédit
+# Affichage des crédit
 def credit():
     for title, name in TEAM_NAMES.items():
         print(title.center(TERMINAL_WIDTH))
@@ -293,8 +286,8 @@ if __name__ == '__main__':
         game()
     except KeyboardInterrupt:
         quick_quit()
-    # except Exception as e:
-     #   print(Style.RESET_ALL + Fore.RED)
-      #  print ("    > Fatal Error:")
-       # print("    > " + str(e))
-        # quick_quit()
+    except Exception as e:
+        print(Style.RESET_ALL + Fore.RED)
+        print ("    > Fatal Error:")
+        print("    > " + str(e))
+        quick_quit()
