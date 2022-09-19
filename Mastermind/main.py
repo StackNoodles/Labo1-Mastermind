@@ -45,13 +45,19 @@ def cprint(txt):
 
 # Centrage du texte pour l 'affichage
 def center_print(txt, offset, jumpline):
+    #definition et supression des codes de style ansi
     regex = re.compile("\x1b\[([0-9,A-Z]{1,2}(;[0-9]{1,2})?(;[0-9]{3})?)?[m|K]?", re.UNICODE)
     cleaned_string = re.sub(regex, '', txt)
 
+    #calcul de la longueur finale de la string
     length = len(cleaned_string)
+
+    #ajout d'espaces pour centrer le texte dans la console, en ne prenant en compte que les charactères qui seront affichés
     whitespace = ""
     for space in range((TERMINAL_WIDTH // 2) - (length//2) + offset):
         whitespace = whitespace + " "
+
+    #print les espaces, la string, et enlever les couleurs a la fin
     print(whitespace + txt + Style.RESET_ALL, end = "")
 
     if jumpline:
@@ -70,13 +76,12 @@ def start():
                 Fore.RED    + "    \__|     \__|\__|  \__| \______/    \__|   \________|\__|  \__|\__|     \__|\______|\__|  \__|\_______/\n")
 
     for line in textwrap.wrap(txt_logo, width=116, drop_whitespace=False):
-        center_print(line, 0, False)
-    
+        center_print(line, 0, True)
+
     print()
-    center_print(Fore.BLACK + Style.BRIGHT + "Developed by" + Fore.YELLOW + " StackNoodles™", 0, False)
-    print()
+    center_print(Fore.BLACK + Style.BRIGHT + "Developed by" + Fore.YELLOW + " StackNoodles™", 0, True)
     center_print(Fore.BLACK + "This work is licensed under a GNU General Public License version 3 (or later version)", 0, True)
-    print(Style.RESET_ALL)
+    print()
 
 # Lancement du programme
 def game():
