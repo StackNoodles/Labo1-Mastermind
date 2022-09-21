@@ -39,10 +39,6 @@ TEAM_NAMES = {
 CODE_SIZE = 4
 allowed_chars = string.printable + " "
 
-def cprint(txt):
-    print(txt.center(TERMINAL_WIDTH))
-
-
 # Centrage du texte pour l 'affichage
 def center_print(txt, offset, jumpline):
     #definition et supression des codes de style ansi
@@ -65,7 +61,7 @@ def center_print(txt, offset, jumpline):
 
 # Affichage du Titre
 def start():
-    print(Style.NORMAL)
+    print()
     txt_logo = (Fore.BLUE   + "    ██\      ██\  ██████\   ██████\  ████████\ ████████\ ███████\  ██\      ██\ ██████\ ██\   ██\ ███████\ \n" +
                 Fore.BLUE   + "    ███\    ███ |██  __██\ ██  __██\ \__██  __|██  _____|██  __██\ ███\    ███ |\_██  _|███\  ██ |██  __██\ \n" +
                 Fore.GREEN  + "    ████\  ████ |██ /  ██ |██ /  \__|   ██ |   ██ |      ██ |  ██ |████\  ████ |  ██ |  ████\ ██ |██ |  ██ |\n" +
@@ -80,7 +76,7 @@ def start():
 
     print()
     center_print(Fore.BLACK + Style.BRIGHT + "Developed by" + Fore.YELLOW + " StackNoodles™", 0, True)
-    center_print(Fore.BLACK + "This work is licensed under a GNU General Public License version 3 (or later version)", 0, True)
+    center_print(Style.BRIGHT + Fore.BLACK + "This work is licensed under a GNU General Public License version 3.0 (or later version)", 0, True)
     print()
 
 # Lancement du programme
@@ -92,17 +88,13 @@ def game():
 # Menu principal + choix
 def main_menu():
 
-    # String contenant l'espace pour centrer'
-    global str_buffer
-    str_buffer = ""
-    for whitespace in range((TERMINAL_WIDTH // 2 - (23))):
-        str_buffer = str_buffer + " "
-
     while True:
-        cprint("Press P to PLAY, Q to QUIT, C for the credits")
-
-        reponse = input(str_buffer + ">>> ").upper()
-
+        print()
+        center_print("Press P to PLAY, Q to QUIT, C for the credits", 0, True)
+        center_print(Style.BRIGHT + Fore.YELLOW + ">>> ", -20, False)
+        reponse = input().upper()
+        print(Style.RESET_ALL, end = "")
+        
         if reponse == "P":
             play()
         elif reponse == "KILL":
@@ -126,14 +118,15 @@ def play():
     # Boucle des tours
     while True:
 
-        query = input(str_buffer + ">>> ").upper()
+        center_print(Style.BRIGHT + Fore.YELLOW + ">>> ", -21, False)
+        query = input().upper()
+        print(Style.RESET_ALL, end = "")
 
         if query == "KILL":
             quick_quit()
 
         elif query == "GIVE UP":
-            cprint(Style.RESET_ALL + Fore.YELLOW + "         Chicken")
-            print(Style.RESET_ALL)
+            center_print(Fore.YELLOW + "Chicken", 0, True)
             main_menu()
 
         elif query == "HACK":
@@ -142,7 +135,8 @@ def play():
             for key, value in secret_code:
                 str_cheat = str_cheat + value
 
-            print(Fore.RED + str_buffer + "ans:" + str_cheat + Fore.YELLOW)
+            center_print(Fore.RED + "ans:" + str_cheat, -19, True)
+            print()
             continue
 
         elif query == '':
@@ -151,8 +145,8 @@ def play():
         submit = verify_query(query)
 
         if submit == "erreur":
-            print(Style.RESET_ALL + Fore.RED + "Wrong input ".center(TERMINAL_WIDTH) +
-                  Style.RESET_ALL + Fore.YELLOW + Style.BRIGHT)
+            center_print(Fore.RED + "Wrong input!", -13, True)
+            print()
             continue
 
         try_meter += 1
@@ -199,41 +193,22 @@ def play():
 
         if (victory):
 
-            str_winpad = ""
-            for whitespace in range((TERMINAL_WIDTH // 2) - 12):
-                str_winpad = str_winpad + " "
-
-            print(str_winpad + attempt + " was the secret code.")
-
-            str_triespad = ""
-            for whitespace in range((TERMINAL_WIDTH // 2) - 16):
-                str_triespad = str_triespad + " "
-            print(str_triespad + "Congrats!! It took you " +
-                  str(try_meter) + " step(s)." + Style.RESET_ALL)
-            print()
+            center_print(attempt + " was the secret code.", 0, True)
+            center_print(Fore.GREEN + Style.BRIGHT +"Congrats!! " + Style.RESET_ALL +  "It took you " +  str(try_meter) + " step(s).", 0, True)
             main_menu()
         else:
-            str_attempt = ""
-            for whitespace in range((TERMINAL_WIDTH // 2) - 19):
-                str_attempt = str_attempt + " "
-            print(str_attempt + attempt + " --> [" + result_chain + "] (? = Color; ! = Color + Position)" +
-                  Style.RESET_ALL + Fore.YELLOW + Style.BRIGHT)
+            center_print(attempt + " --> [" + result_chain + "] (?: Color; !: Color + Index)", 5, True)
             print()
 
 # Entrée dans la partie
 def play_menu():
 
     print()
-    cprint("game started!")
-
-    str_askCOLORS = str_buffer + (Style.RESET_ALL + "Try a " + str(CODE_SIZE) + " char code [" +
-                                     COLORS["B"] + ", " + COLORS["G"] + ", " + COLORS["R"] + ", " +
-                                     COLORS["Y"] + ", " + COLORS["C"] +
-                                     ", " + COLORS["P"]
-                                     + "] or " + Fore.GREEN + "GIVE UP" + Fore.YELLOW + Style.BRIGHT)
-
-    print(str_askCOLORS.center(TERMINAL_WIDTH))
-
+    center_print(Style.BRIGHT + Fore.GREEN + "Game Start!", 0, True)
+    print()
+    center_print("Try a " + str(CODE_SIZE) + " char code [" + COLORS["B"] + ", " + COLORS["G"] + ", " + COLORS["R"] + 
+                    ", " + COLORS["Y"] + ", " + COLORS["C"] + ", " + COLORS["P"] + "] or " + Fore.GREEN + "GIVE UP", 0, True)
+                    
 # Verification et traduction de l'entrée de l'utilisateur
 def verify_query(query):
 
@@ -253,36 +228,41 @@ def verify_query(query):
 
 # Sortie lente du programme
 def slow_quit():
-    print("Unplugging".center(TERMINAL_WIDTH))
-    print("".center((TERMINAL_WIDTH // 2) - (5)), end="")
+    center_print("Unplugging", 0, True)
+    center_print("", -5, False)
     for period in range(5):
         time.sleep(0.2)
         print(". ", end="")
 
     time.sleep(0.5)
-    print()
-    print("BRAIN UNPLUGGED!".center(TERMINAL_WIDTH), end="")
-    time.sleep(0.5)
-    print()
-    print(" Goodbye.".center(TERMINAL_WIDTH))
 
+    print()
+    center_print("BRAIN UNPLUGGED!\n", 0, True)
+    time.sleep(0.5)
+    center_print("Goodbye.", 0, True)
     quit()
 
 # Sortie rapide du programme
 def quick_quit():
-    print(Style.RESET_ALL + Fore.RED)
-    print("Goodbye".center(TERMINAL_WIDTH))
+    print()
+    center_print(Fore.RED + "Goodbye", 0, True)
     quit()
 
 # Affichage des crédit
 def credit():
+    print()
+    center_print(Style.BRIGHT + "Developed in 2022 by" + Fore.YELLOW + " StackNoodles™", 0, False)
+    print(":\n")
     for title, name in TEAM_NAMES.items():
-        print(title.center(TERMINAL_WIDTH))
-        print(name.center(TERMINAL_WIDTH))
+        center_print(title, 0, True)
+        center_print(name, 0, True)
         print()
         time.sleep(0.5)
-
-    print(Style.RESET_ALL)
+    
+    center_print(Style.BRIGHT +Fore.BLACK + "Licensed under GNU General Public License v3.0", 0, True)
+    center_print(Style.BRIGHT +Fore.BLACK + "https://github.com/StackNoodles/Labo1-Mastermind", 0, True)
+    print()
+    
 
 
 # Demarrage du programme
@@ -292,7 +272,7 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         quick_quit()
     except Exception as e:
-        print(Style.RESET_ALL + Fore.RED)
+        print(Fore.RED)
         print ("    > Fatal Error:")
         print("    > " + str(e))
         quick_quit()
