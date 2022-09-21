@@ -127,7 +127,7 @@ def play():
 
         elif query == "GIVE UP":
             center_print(Fore.YELLOW + "Chicken", 0, True)
-            main_menu()
+            return
 
         elif query == "HACK":
 
@@ -195,7 +195,7 @@ def play():
 
             center_print(attempt + " was the secret code.", 0, True)
             center_print(Fore.GREEN + Style.BRIGHT +"Congrats!! " + Style.RESET_ALL +  "It took you " +  str(try_meter) + " step(s).", 0, True)
-            main_menu()
+            return
         else:
             center_print(attempt + " --> [" + result_chain + "] (?: Color; !: Color + Index)", 3, True)
             print()
