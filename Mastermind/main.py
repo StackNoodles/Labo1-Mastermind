@@ -41,7 +41,7 @@ allowed_chars = string.printable + " "
 
 
 # Centrage du texte pour l 'affichage
-def center_print(txt, offset, jumpline):
+def center_print(txt, offset = 0, jumpline = True):
     #definition et supression des codes de style ansi
     regex = re.compile("\x1b\[([0-9,A-Z]{1,2}(;[0-9]{1,2})?(;[0-9]{3})?)?[m|K]?", re.UNICODE)
     cleaned_string = re.sub(regex, '', txt)
@@ -59,12 +59,8 @@ def center_print(txt, offset, jumpline):
 
     if jumpline:
         print()
-        
-def center_print(txt, jumpline):
-    center_print(txt, 0, jumpline)
-    
-def center_print(txt, jumpline):
-    center_print(txt, 0, jumpline)
+
+
 
 # Affichage du Titre
 def start():
@@ -79,11 +75,11 @@ def start():
                 Fore.RED    + "    \__|     \__|\__|  \__| \______/    \__|   \________|\__|  \__|\__|     \__|\______|\__|  \__|\_______/\n")
 
     for line in textwrap.wrap(txt_logo, width=116, drop_whitespace=False):
-        center_print(line, 0, True)
+        center_print(line)
 
     print()
-    center_print(Fore.BLACK + Style.BRIGHT + "Developed by" + Fore.YELLOW + " StackNoodles™", 0, True)
-    center_print(Style.BRIGHT + Fore.BLACK + "This work is licensed under a GNU General Public License version 3.0 (or later version)", 0, True)
+    center_print(Fore.BLACK + Style.BRIGHT + "Developed by" + Fore.YELLOW + " StackNoodles™")
+    center_print(Style.BRIGHT + Fore.BLACK + "This work is licensed under a GNU General Public License version 3.0 (or later version)")
     print()
 
 # Lancement du programme
@@ -96,7 +92,7 @@ def main_menu():
 
     while True:
         print()
-        center_print("Press P to PLAY, Q to QUIT, C for the credits", 0, True)
+        center_print("Press P to PLAY, Q to QUIT, C for the credits")
         center_print(Style.BRIGHT + Fore.YELLOW + ">>> ", -20, False)
         reponse = input().upper()
         print(Style.RESET_ALL, end = "")
@@ -132,7 +128,7 @@ def play():
             quick_quit()
 
         elif query == "GIVE UP":
-            center_print(Fore.YELLOW + "Chicken", 0, True)
+            center_print(Fore.YELLOW + "Chicken")
             return
 
         elif query == "HACK":
@@ -141,7 +137,7 @@ def play():
             for key, value in secret_code:
                 str_cheat = str_cheat + value
 
-            center_print(Fore.RED + "ans:" + str_cheat, -19, True)
+            center_print(Fore.RED + "ans:" + str_cheat, -19)
             print()
             continue
 
@@ -151,7 +147,7 @@ def play():
         submit = verify_query(query)
 
         if submit == "erreur":
-            center_print(Fore.RED + "Wrong input!", -13, True)
+            center_print(Fore.RED + "Wrong input!", -13)
             print()
             continue
 
@@ -199,21 +195,21 @@ def play():
 
         if (victory):
 
-            center_print(attempt + " was the secret code.", 0, True)
-            center_print(Fore.GREEN + Style.BRIGHT +"Congrats!! " + Style.RESET_ALL +  "It took you " +  str(try_meter) + " step(s).", 0, True)
+            center_print(attempt + " was the secret code.")
+            center_print(Fore.GREEN + Style.BRIGHT +"Congrats!! " + Style.RESET_ALL +  "It took you " +  str(try_meter) + " step(s).")
             return
         else:
-            center_print(attempt + " --> [" + result_chain + "] (?: Color; !: Color + Index)", 3, True)
+            center_print(attempt + " --> [" + result_chain + "] (?: Color; !: Color + Index)", 3)
             print()
 
 # Entrée dans la partie
 def play_menu():
 
     print()
-    center_print(Style.BRIGHT + Fore.GREEN + "Game Start!", 0, True)
+    center_print(Style.BRIGHT + Fore.GREEN + "Game Start!")
     print()
     center_print("Try a " + str(CODE_SIZE) + " char code [" + COLORS["B"] + ", " + COLORS["G"] + ", " + COLORS["R"] + 
-                    ", " + COLORS["Y"] + ", " + COLORS["C"] + ", " + COLORS["P"] + "] or " + Fore.GREEN + "GIVE UP", 0, True)
+                    ", " + COLORS["Y"] + ", " + COLORS["C"] + ", " + COLORS["P"] + "] or " + Fore.GREEN + "GIVE UP")
                     
 # Verification et traduction de l'entrée de l'utilisateur
 def verify_query(query):
@@ -234,7 +230,7 @@ def verify_query(query):
 
 # Sortie lente du programme
 def slow_quit():
-    center_print("Unplugging", 0, True)
+    center_print("Unplugging")
     center_print("", -5, False)
     for period in range(5):
         time.sleep(0.2)
@@ -243,30 +239,30 @@ def slow_quit():
     time.sleep(0.5)
 
     print()
-    center_print("BRAIN UNPLUGGED!\n", 0, True)
+    center_print(" BRAIN UNPLUGGED!\n")
     time.sleep(0.5)
-    center_print("Goodbye.", 0, True)
+    center_print("Goodbye.")
     quit()
 
 # Sortie rapide du programme
 def quick_quit():
     print()
-    center_print(Fore.RED + "Goodbye", 0, True)
+    center_print(Fore.RED + "Goodbye")
     quit()
 
 # Affichage des crédit
 def credit():
     print()
-    center_print(Style.BRIGHT + "Developed in 2022 by" + Fore.YELLOW + " StackNoodles™", 0, False)
+    center_print(Style.BRIGHT + "Developed in 2022 by" + Fore.YELLOW + " StackNoodles™", False)
     print(":\n")
     for title, name in TEAM_NAMES.items():
-        center_print(title, 0, True)
-        center_print(name, 0, True)
+        center_print(title)
+        center_print(name)
         print()
         time.sleep(0.5)
     
-    center_print(Style.BRIGHT +Fore.BLACK + "Licensed under GNU General Public License v3.0", 0, True)
-    center_print(Style.BRIGHT +Fore.BLACK + "https://github.com/StackNoodles/Labo1-Mastermind", 0, True)
+    center_print(Style.BRIGHT +Fore.BLACK + "Licensed under GNU General Public License v3.0")
+    center_print(Style.BRIGHT +Fore.BLACK + "https://github.com/StackNoodles/Labo1-Mastermind")
     print()
     
 
