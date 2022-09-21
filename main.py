@@ -61,7 +61,6 @@ def center_print(txt, offset = 0, jumpline = True):
         print()
 
 
-
 # Affichage du Titre
 def start():
     print()
