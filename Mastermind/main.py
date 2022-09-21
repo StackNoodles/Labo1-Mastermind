@@ -39,6 +39,7 @@ TEAM_NAMES = {
 CODE_SIZE = 4
 allowed_chars = string.printable + " "
 
+
 # Centrage du texte pour l 'affichage
 def center_print(txt, offset, jumpline):
     #definition et supression des codes de style ansi
@@ -58,6 +59,12 @@ def center_print(txt, offset, jumpline):
 
     if jumpline:
         print()
+        
+def center_print(txt, jumpline):
+    center_print(txt, 0, jumpline)
+    
+def center_print(txt, jumpline):
+    center_print(txt, 0, jumpline)
 
 # Affichage du Titre
 def start():
@@ -82,7 +89,6 @@ def start():
 # Lancement du programme
 def game():
     start()
-
     main_menu()
 
 # Menu principal + choix
