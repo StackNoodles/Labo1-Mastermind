@@ -197,7 +197,7 @@ def play():
             center_print(Fore.GREEN + Style.BRIGHT +"Congrats!! " + Style.RESET_ALL +  "It took you " +  str(try_meter) + " step(s).", 0, True)
             main_menu()
         else:
-            center_print(attempt + " --> [" + result_chain + "] (?: Color; !: Color + Index)", 5, True)
+            center_print(attempt + " --> [" + result_chain + "] (?: Color; !: Color + Index)", 3, True)
             print()
 
 # Entrée dans la partie
