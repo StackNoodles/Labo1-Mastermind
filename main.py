@@ -265,7 +265,6 @@ def credit():
     print()
     
 
-    
 # Demarrage du programme
 if __name__ == '__main__':
     try:
